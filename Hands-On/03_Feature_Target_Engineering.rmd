@@ -30,9 +30,9 @@ header-includes:
    \setlength\headheight{30pt}
    \rhead{\color{headergrey}\today}
    \fancyhead[L]{\color{headergrey}Moretz, Brandon}
-   \fancyhead[C]{\Large\bfseries\color{headergrey}Modeling Process}
+   \fancyhead[C]{\Large\bfseries\color{headergrey}Feature and Target Engineering}
    \rfoot{\color{headergrey}\thepage}
-   \lfoot{\color{headergrey}Chapter 2}
+   \lfoot{\color{headergrey}Chapter 3}
    \fancyfoot[C]{\rmfamily\color{headergrey}Hands-On Machine Learning}
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
