@@ -30,10 +30,10 @@ header-includes:
    \setlength\headheight{30pt}
    \rhead{\color{headergrey}\today}
    \fancyhead[L]{\color{headergrey}Moretz, Brandon}
-   \fancyhead[C]{\Large\bfseries\color{headergrey}Feature and Target Engineering}
+   \fancyhead[C]{\Large\bfseries\color{headergrey}Statistical Learning}
    \rfoot{\color{headergrey}\thepage}
    \lfoot{\color{headergrey}Chapter 3}
-   \fancyfoot[C]{\rmfamily\color{headergrey}Hands-On Machine Learning}
+   \fancyfoot[C]{\rmfamily\color{headergrey}Linear Regression}
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -68,9 +68,9 @@ library(ggrepel, quietly = TRUE, warn.conflicts = FALSE)
 # Plotting / Graphics
 
 library(ggplot2, quietly = TRUE, warn.conflicts = FALSE)
-library(visdat, quietly = TRUE, warn.conflicts = FALSE)
 library(ggrepel, quietly = TRUE, warn.conflicts = FALSE)
 library(ggthemes, quietly = TRUE, warn.conflicts = FALSE)
+library(GGally, quietly = TRUE, warn.conflicts = FALSE)
 library(grid, quietly = TRUE, warn.conflicts = FALSE)
 library(gridExtra, quietly = TRUE, warn.conflicts = FALSE)
 library(png, quietly = TRUE, warn.conflicts = FALSE)
@@ -84,23 +84,14 @@ library(scales, quietly = TRUE, warn.conflicts = FALSE)
 library(pander, quietly = TRUE, warn.conflicts = FALSE)
 library(formattable, quietly = TRUE, warn.conflicts = FALSE)
 
-# Feature Engineering
-library(recipes, quietly = TRUE, warn.conflicts = FALSE)
-
 # Utility
 library(here, quietly = TRUE, warn.conflicts = FALSE)
 
 # Resampling & Modeling
 library(MASS, quietly = TRUE, warn.conflicts = FALSE)
+library(ISLR, quietly = TRUE, warn.conflicts = FALSE)
 library(rsample, quietly = TRUE, warn.conflicts = FALSE)
 library(caret, quietly = TRUE, warn.conflicts = FALSE)
-library(h2o, quietly = TRUE, warn.conflicts = FALSE)
-library(forecast, quietly = TRUE, warn.conflicts = FALSE)
-
-# h2o Setup
-
-h2o.no_progress()
-h2o.init()
 
 options(tinytex.verbose = TRUE)
 suppressMessages(library("tidyverse"))
@@ -127,9 +118,9 @@ theme_update(axis.text.x = element_text(size = 10),
 
 data.dir <- paste0(here::here(), "/datasets/")
 
-select <- dplyr::select # fix class with MASS
-
 ```
+
+## Chapter 3
 
 ```{r pander_setup, include = FALSE}
 
@@ -143,102 +134,16 @@ panderOptions('keep.trailing.zeros', TRUE)
 
 ```
 
-## Feature and Target Engineering
-
-### Data Set
-
-h2o
-
-```{r, echo = T}
-ames <- AmesHousing::make_ames()
-ames.h2o <- as.h2o(ames)
-```
-
-stratified (_Sale_Price_) training sample
-
-```{r, echo = T}
-set.seed(123)
-
-split <- initial_split(ames, prop = 0.7,
-                       strata = "Sale_Price")
-
-ames_train <- training(split)
-ames_test <- testing(split)
-```
-
-log transformation (Sale_Price)
-
-```{r, echo = T}
-ames_recipe <- recipe(Sale_Price ~ ., data = ames_train) %>%
-   step_log(all_outcomes())
-
-ames_recipe
-```
-
-Box-Cox transformation (example)
-
-```{r, echo = T}
-lambda <- 3
-
-y <- forecast::BoxCox(10, lambda)
-
-inv_box_cox <- function(x, lambda) {
-   # for Box-Cox, lambda = 0 -> log transform
-   if(lambda == 0) exp(x) else (lambda*x + 1)^(1/lambda)
-}
-
-inv_box_cox(y, lambda)
-```
-
-### Missing Values
-
-```{r, echo = T}
-sum(is.na(AmesHousing::ames_raw))
-```
+### R Lab
 
 ```{r, echo = T, fig.width=8, fig.height=3.5}
-AmesHousing::ames_raw %>%
-   is.na() %>%
-   reshape2::melt() %>%
-   ggplot(aes(Var2, Var1, fill = value)) +
-      geom_raster() +
-      coord_flip() +
-      scale_y_continuous(NULL, expand = c(0,0)) +
-      scale_fill_grey(name = "",
-                      labels = c("Present",
-                                 "Missing")) +
-   xlab("Observations") +
-   theme(axis.text.y = element_text(size = 4))
-```
-
-Missing Garage?
-
-```{r, echo = T}
-AmesHousing::ames_raw %>%
-   filter(is.na('Garage Type')) %>%
-   select(starts_with("Garage"))
 
 ```
 
-Missing values w/cluster (_visdat_)
+### Conceptual
 
-```{r, echo = T, fig.width=8, fig.height=4}
-vis_miss(AmesHousing::ames_raw, cluster = T)
-```
+#### 1.)
 
-### Missing Value Imputation
+### Applied
 
-basic descriptive statistic
-
-```{r, echo = T}
-ames_recipe %>%
-   step_medianimpute(Gr_Liv_Area)
-```
-
-KNN approach (typical k = 5-10)
-
-```{r, echo = T}
-ames_recipe %>%
-   step_knnimpute(all_predictors(), neighbors = 6)
-```
-
+####
