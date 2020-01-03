@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  2 JAN 2020 17:27
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  3 JAN 2020 10:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1575,82 +1575,267 @@ Package xcolor Warning: Incompatible color definition on input line 215.
 Package xcolor Warning: Incompatible color definition on input line 215.
 
 
-Package xcolor Warning: Incompatible color definition on input line 226.
+Package xcolor Warning: Incompatible color definition on input line 223.
 
 
-Package xcolor Warning: Incompatible color definition on input line 230.
+Package xcolor Warning: Incompatible color definition on input line 247.
 
 
-Package xcolor Warning: Incompatible color definition on input line 230.
+Package xcolor Warning: Incompatible color definition on input line 247.
+
+File: 03_Feature_Target_Engineering_files/figure-latex/engineering-distribution
+-comparison-1.png Graphic file (type bmp)
+<03_Feature_Target_Engineering_files/figure-latex/engineering-distribution-comp
+arison-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 258.
+
+[2]
+
+Package xcolor Warning: Incompatible color definition on input line 262.
 
 
-Package xcolor Warning: Incompatible color definition on input line 236.
+Package xcolor Warning: Incompatible color definition on input line 262.
 
 
-Package xcolor Warning: Incompatible color definition on input line 251.
+Package xcolor Warning: Incompatible color definition on input line 268.
 
 
-Package xcolor Warning: Incompatible color definition on input line 251.
+Package xcolor Warning: Incompatible color definition on input line 283.
+
+
+Package xcolor Warning: Incompatible color definition on input line 283.
 
 File: 03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-6-1.png Gr
 aphic file (type bmp)
 <03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-6-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 257.
-
-[2]
-
-Package xcolor Warning: Incompatible color definition on input line 263.
+Package xcolor Warning: Incompatible color definition on input line 289.
 
 
-Package xcolor Warning: Incompatible color definition on input line 263.
+Package xcolor Warning: Incompatible color definition on input line 295.
 
 
-Package xcolor Warning: Incompatible color definition on input line 274.
+Package xcolor Warning: Incompatible color definition on input line 295.
+
+[3]
+
+Package xcolor Warning: Incompatible color definition on input line 317.
 
 
-Package xcolor Warning: Incompatible color definition on input line 278.
+Package xcolor Warning: Incompatible color definition on input line 321.
 
 
-Package xcolor Warning: Incompatible color definition on input line 278.
+Package xcolor Warning: Incompatible color definition on input line 321.
 
 File: 03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-8-1.png Gr
 aphic file (type bmp)
 <03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-8-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 287.
+Package xcolor Warning: Incompatible color definition on input line 330.
 
 
-Package xcolor Warning: Incompatible color definition on input line 292.
+Package xcolor Warning: Incompatible color definition on input line 335.
 
 
-Package xcolor Warning: Incompatible color definition on input line 292.
+Package xcolor Warning: Incompatible color definition on input line 335.
 
-[3]
-
-Package xcolor Warning: Incompatible color definition on input line 311.
-
-
-Package xcolor Warning: Incompatible color definition on input line 316.
-
-
-Package xcolor Warning: Incompatible color definition on input line 316.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 333.
 [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 333.
+
+Package xcolor Warning: Incompatible color definition on input line 354.
+
+
+Package xcolor Warning: Incompatible color definition on input line 359.
+
+
+Package xcolor Warning: Incompatible color definition on input line 359.
+
+
+Package xcolor Warning: Incompatible color definition on input line 376.
+
+
+Package xcolor Warning: Incompatible color definition on input line 435.
+
+
+Package xcolor Warning: Incompatible color definition on input line 435.
+
+
+Underfull \vbox (badness 3792) detected at line 435
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 435.
+
+[5]
+
+Package xcolor Warning: Incompatible color definition on input line 435.
+
+
+Package xcolor Warning: Incompatible color definition on input line 435.
+
+File: 03_Feature_Target_Engineering_files/figure-latex/engineering-imputation-e
+xamples-1.png Graphic file (type bmp)
+<03_Feature_Target_Engineering_files/figure-latex/engineering-imputation-exampl
+es-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 455.
+
+[6] [7]
+
+Package xcolor Warning: Incompatible color definition on input line 476.
+
+
+Package xcolor Warning: Incompatible color definition on input line 476.
+
+
+Package xcolor Warning: Incompatible color definition on input line 488.
+
+
+Package xcolor Warning: Incompatible color definition on input line 496.
+
+
+Package xcolor Warning: Incompatible color definition on input line 496.
+
+File: 03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-11-1.png G
+raphic file (type bmp)
+<03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-11-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 500.
+
+[8]
+
+Package xcolor Warning: Incompatible color definition on input line 516.
+
+
+Package xcolor Warning: Incompatible color definition on input line 516.
+
+File: 03_Feature_Target_Engineering_files/figure-latex/engineering-impact-on-ti
+me-1.png Graphic file (type bmp)
+<03_Feature_Target_Engineering_files/figure-latex/engineering-impact-on-time-1.
+png>
+
+Package xcolor Warning: Incompatible color definition on input line 541.
+
+
+Package xcolor Warning: Incompatible color definition on input line 547.
+
+
+Package xcolor Warning: Incompatible color definition on input line 547.
+
+[9] [10]
+
+Package xcolor Warning: Incompatible color definition on input line 606.
+
+
+Package xcolor Warning: Incompatible color definition on input line 612.
+
+
+Package xcolor Warning: Incompatible color definition on input line 612.
+
+
+Package xcolor Warning: Incompatible color definition on input line 630.
+
+
+Package xcolor Warning: Incompatible color definition on input line 665.
+
+
+Package xcolor Warning: Incompatible color definition on input line 665.
+
+
+Package xcolor Warning: Incompatible color definition on input line 665.
+
+[11]
+
+Package xcolor Warning: Incompatible color definition on input line 665.
+
+
+Package xcolor Warning: Incompatible color definition on input line 665.
+
+File: 03_Feature_Target_Engineering_files/figure-latex/engineering-standardizin
+g-1.png Graphic file (type bmp)
+<03_Feature_Target_Engineering_files/figure-latex/engineering-standardizing-1.p
+ng>
+[12]
+
+Package xcolor Warning: Incompatible color definition on input line 689.
+
+
+Package xcolor Warning: Incompatible color definition on input line 693.
+
+
+Package xcolor Warning: Incompatible color definition on input line 693.
+
+
+Package xcolor Warning: Incompatible color definition on input line 712.
+
+
+Package xcolor Warning: Incompatible color definition on input line 716.
+
+
+Package xcolor Warning: Incompatible color definition on input line 716.
+
+
+Package xcolor Warning: Incompatible color definition on input line 740.
+
+[13]
+
+Package xcolor Warning: Incompatible color definition on input line 754.
+
+
+Package xcolor Warning: Incompatible color definition on input line 754.
+
+
+Package xcolor Warning: Incompatible color definition on input line 773.
+
+
+Package xcolor Warning: Incompatible color definition on input line 778.
+
+
+Package xcolor Warning: Incompatible color definition on input line 778.
+
+
+Package xcolor Warning: Incompatible color definition on input line 788.
+
+
+Package xcolor Warning: Incompatible color definition on input line 793.
+
+
+Package xcolor Warning: Incompatible color definition on input line 793.
+
+[14]
+
+Package xcolor Warning: Incompatible color definition on input line 808.
+
+
+Package xcolor Warning: Incompatible color definition on input line 816.
+
+
+Package xcolor Warning: Incompatible color definition on input line 816.
+
+
+Package xcolor Warning: Incompatible color definition on input line 831.
+
+
+Package xcolor Warning: Incompatible color definition on input line 838.
+
+
+Package xcolor Warning: Incompatible color definition on input line 838.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 853.
+[15]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 853.
 (./03_Feature_Target_Engineering.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 333.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 333.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 333.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 853.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 853.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 853.
  ) 
 Here is how much of TeX's memory you used:
- 28820 strings out of 494988
- 514279 string characters out of 6178637
- 735072 words of memory out of 5000000
- 32395 multiletter control sequences out of 15000+600000
+ 28855 strings out of 494988
+ 515970 string characters out of 6178637
+ 741283 words of memory out of 5000000
+ 32425 multiletter control sequences out of 15000+600000
  531020 words of font info for 45 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 51i,11n,117p,10438b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 51i,12n,117p,10438b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 03_Feature_Target_Engineering.pdf (4 pages).
+Output written on 03_Feature_Target_Engineering.pdf (15 pages).
