@@ -2,6 +2,8 @@
 title: ''
 mainfont: Arial
 fontsize: 12pt
+fig_width: 9
+fig_height: 3.5
 documentclass: report
 header-includes:
 - \PassOptionsToPackage{table}{xcolor}
@@ -30,10 +32,10 @@ header-includes:
    \setlength\headheight{30pt}
    \rhead{\color{headergrey}\today}
    \fancyhead[L]{\color{headergrey}Moretz, Brandon}
-   \fancyhead[C]{\Large\bfseries\color{headergrey}Feature and Target Engineering}
+   \fancyhead[C]{\Large\bfseries\color{headergrey}Statistical Learning}
    \rfoot{\color{headergrey}\thepage}
    \lfoot{\color{headergrey}Chapter 3}
-   \fancyfoot[C]{\rmfamily\color{headergrey}Hands-On Machine Learning}
+   \fancyfoot[C]{\rmfamily\color{headergrey}Linear Regression}
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -42,20 +44,19 @@ output:
     latex_engine: xelatex
 editor_options: 
   chunk_output_type: console
-fig_width: 9
-fig_height: 3.5
 ---
 
 
 ```{r knitr_setup, include = FALSE}
 
 # DO NOT ADD OR REVISE CODE HERE
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, dev = 'png', fig.width = 9, fig.height = 3.5)
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, dev = 'png')
 options(knitr.table.format = "latex")
 
 ```
 
 ```{r report_setup, message = FALSE, warning = FALSE, include = FALSE}
+
 # Data Wrangling
 
 library(data.table, quietly = TRUE, warn.conflicts = FALSE)
@@ -69,9 +70,9 @@ library(ggrepel, quietly = TRUE, warn.conflicts = FALSE)
 # Plotting / Graphics
 
 library(ggplot2, quietly = TRUE, warn.conflicts = FALSE)
-library(visdat, quietly = TRUE, warn.conflicts = FALSE)
 library(ggrepel, quietly = TRUE, warn.conflicts = FALSE)
 library(ggthemes, quietly = TRUE, warn.conflicts = FALSE)
+library(GGally, quietly = TRUE, warn.conflicts = FALSE)
 library(grid, quietly = TRUE, warn.conflicts = FALSE)
 library(gridExtra, quietly = TRUE, warn.conflicts = FALSE)
 library(png, quietly = TRUE, warn.conflicts = FALSE)
@@ -85,24 +86,15 @@ library(scales, quietly = TRUE, warn.conflicts = FALSE)
 library(pander, quietly = TRUE, warn.conflicts = FALSE)
 library(formattable, quietly = TRUE, warn.conflicts = FALSE)
 
-# Feature Engineering
-library(recipes, quietly = TRUE, warn.conflicts = FALSE)
-
 # Utility
 library(here, quietly = TRUE, warn.conflicts = FALSE)
 
 # Resampling & Modeling
+library(car, quietly = TRUE, warn.conflicts = FALSE)
 library(MASS, quietly = TRUE, warn.conflicts = FALSE)
+library(ISLR, quietly = TRUE, warn.conflicts = FALSE)
 library(rsample, quietly = TRUE, warn.conflicts = FALSE)
 library(caret, quietly = TRUE, warn.conflicts = FALSE)
-library(h2o, quietly = TRUE, warn.conflicts = FALSE)
-library(forecast, quietly = TRUE, warn.conflicts = FALSE)
-library(vip, quietly = TRUE, warn.conflicts = FALSE)
-
-# h2o Setup
-
-h2o.no_progress()
-h2o.init()
 
 options(tinytex.verbose = TRUE)
 suppressMessages(library("tidyverse"))
@@ -127,11 +119,12 @@ theme_update(axis.text.x = element_text(size = 10),
                                          colour = "lightgray"), 
              plot.margin = unit(c( 0.1, 0.1, 0.1, 0.1), "inches"))
 
-data.dir <- paste0(here::here(), "/Hands-On/data/")
+data.dir <- paste0(here::here(), "/datasets/")
 
-select <- dplyr::select # fix clash with MASS
-
+select <- dplyr::select
 ```
+
+## Chapter 3
 
 ```{r pander_setup, include = FALSE}
 
@@ -145,90 +138,12 @@ panderOptions('keep.trailing.zeros', TRUE)
 
 ```
 
-## Linear Regression
+### R Lab
 
-### Data Set
+### Conceptual
 
-h2o
+#### 1.)
 
-```{r, echo = T}
-ames <- AmesHousing::make_ames()
-ames.h2o <- as.h2o(ames)
-```
+### Applied
 
-stratified (_Sale_Price_) training sample
-
-```{r, echo = T}
-set.seed(123)
-
-split <- initial_split(ames, prop = 0.7,
-                       strata = "Sale_Price")
-
-ames_train <- training(split)
-ames_test <- testing(split)
-```
-
-### Simple Linear Model
-
-```{r, echo = T}
-model1 <- lm(Sale_Price ~ Gr_Liv_Area, data = ames_train)
-```
-
-```{r, echo = T, fig.height = 4.5}
-# Fitted regression line (full training)
-p1 <- model1 %>%
-   broom::augment() %>%
-   ggplot(aes(Gr_Liv_Area, Sale_Price)) +
-   geom_point(size = 1, alpha = 0.3) +
-   geom_smooth(se = F, method = "lm") +
-   scale_y_continuous(labels = scales::dollar) +
-   ggtitle("Fitted regression line")
-
-# Fitted regression line (restricted range)
-p2 <- model1 %>%
-   broom::augment() %>%
-   ggplot(aes(Gr_Liv_Area, Sale_Price)) +
-   geom_segment(aes(x = Gr_Liv_Area, y = Sale_Price,
-                    xend = Gr_Liv_Area, yend = .fitted),
-                alpha = .3) +
-   geom_point(size = 1, alpha = 0.3) +
-   geom_smooth(se = F, method = "lm") +
-   scale_y_continuous(labels = scales::dollar) +
-   ggtitle("Fitted regression line (with residuals)")
-
-grid.arrange(p1, p2, nrow = 2)
-```
-
-```{r, echo=T}
-summary(model1)
-```
-
-```{r}
-sigma(model1) # RMSE, also Residual Standard Error in summary()
-sigma(model1)^2 # MSE
-```
-
-### Inference
-
-The variability of an estimate is its _standard error (SE)_, the square root of its variance.
-
-t-test for the coefficents are simply the estimated coefficent divided by the standard error (t value = Estimate / Std. Error)
-
-t-test measure the number of standard deviations each coefficent is away from zero (basically abs(T) > 2 is significant at 95% conf)
-
-The confidence interval for coefficents is:
-
-$\hat{\beta_j} \pm t_{1-\alpha/2, n-p}\hat{SE}(\hat{\beta_j})$
-
-```{r, echo = T}
-confint(model1, level = .95)
-```
-
-Interpretation: We are 95% confident that each one unit increase in Gr_Liv_Area adds between 109.9 and 119.8 dollars to the sale price.
-
-Linear Regression Assumptions:
-
-+ 1.) Independent observations
-+ 2.) The random errors have mean zero, and constant variance
-+ 3.) The random errors are normally distributed
-
+#### 8.)

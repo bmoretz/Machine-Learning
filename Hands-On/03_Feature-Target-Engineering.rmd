@@ -126,7 +126,7 @@ theme_update(axis.text.x = element_text(size = 10),
 
 data.dir <- paste0(here::here(), "/Hands-On/data/")
 
-select <- dplyr::select # fix class with MASS
+select <- dplyr::select # fix clash with MASS
 
 ```
 

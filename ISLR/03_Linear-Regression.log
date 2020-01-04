@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  4 JAN 2020 10:22
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  4 JAN 2020 12:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1837,186 +1837,147 @@ le (type bmp)
 <03_Linear-Regression_files/figure-latex/unnamed-chunk-23-1.png>
 [16]
 
-Package xcolor Warning: Incompatible color definition on input line 1055.
+Package xcolor Warning: Incompatible color definition on input line 1067.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1059.
+Package xcolor Warning: Incompatible color definition on input line 1071.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1059.
+Package xcolor Warning: Incompatible color definition on input line 1071.
 
-
-Package xcolor Warning: Incompatible color definition on input line 1069.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1073.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1073.
-
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-25-1.png Graphic fi
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-24-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-25-1.png>
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-24-1.png>
 [17]
 
-Package xcolor Warning: Incompatible color definition on input line 1087.
+Package xcolor Warning: Incompatible color definition on input line 1085.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1091.
+Package xcolor Warning: Incompatible color definition on input line 1089.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1091.
+Package xcolor Warning: Incompatible color definition on input line 1089.
 
 [18]
 
-Package xcolor Warning: Incompatible color definition on input line 1125.
+Package xcolor Warning: Incompatible color definition on input line 1123.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1129.
+Package xcolor Warning: Incompatible color definition on input line 1127.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1129.
+Package xcolor Warning: Incompatible color definition on input line 1127.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1180.
+Package xcolor Warning: Incompatible color definition on input line 1178.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1185.
+Package xcolor Warning: Incompatible color definition on input line 1183.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1185.
+Package xcolor Warning: Incompatible color definition on input line 1183.
 
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-28-1.png Graphic fi
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-27-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-28-1.png>
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-27-1.png>
 [19]
 
-Package xcolor Warning: Incompatible color definition on input line 1206.
+Package xcolor Warning: Incompatible color definition on input line 1204.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1210.
+Package xcolor Warning: Incompatible color definition on input line 1208.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1210.
+Package xcolor Warning: Incompatible color definition on input line 1208.
 
 [20]
 LaTeX Font Info:    Font shape `TU/Arial(1)/m/n' will be
-(Font)              scaled to size 9.97394pt on input line 1244.
+(Font)              scaled to size 9.97394pt on input line 1242.
 LaTeX Font Info:    Font shape `TU/Arial(1)/m/n' will be
-(Font)              scaled to size 6.99406pt on input line 1244.
+(Font)              scaled to size 6.99406pt on input line 1242.
 LaTeX Font Info:    Font shape `TU/Arial(1)/m/n' will be
-(Font)              scaled to size 4.96774pt on input line 1244.
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-30-1.png Graphic fi
+(Font)              scaled to size 4.96774pt on input line 1242.
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-29-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-30-1.png>
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-29-1.png>
 [21] [22]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-34-1.png Graphic fi
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-33-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-34-1.png>
-[23] [24] [25]
-Overfull \hbox (18.99634pt too wide) detected at line 1523
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-33-1.png>
+[23] [24]
+Overfull \hbox (18.99634pt too wide) detected at line 1521
 [] [] [] [] [] [] [][]
  []
 
-[26] [27] [28]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-45-1.png Graphic fi
+[25] [26] [27] [28]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-44-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-45-1.png>
-[29] [30]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-47-1.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-44-1.png>
+[29]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-46-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-47-1.png>
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-46-1.png>
+[30]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-48-1.png Graphic fi
+le (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-48-1.png>
 [31]
 File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-49-1.png Graphic fi
 le (type bmp)
 <03_Linear-Regression_files/figure-latex/unnamed-chunk-49-1.png>
-[32] [33]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-50-1.png Graphic fi
+[32]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-52-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-50-1.png>
-[34]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-53-1.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-52-1.png>
+[33] [34] [35]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-53-1.png>
-[35] [36] [37] [38]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-1.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-1.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-2.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-1.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-2.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-2.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-3.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-2.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-3.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-3.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-4.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-3.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-4.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-4.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-5.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-4.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-5.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-5.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-6.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-5.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-6.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-6.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-7.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-6.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-7.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-7.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-8.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-7.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-8.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-8.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-9.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-8.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-9.png Graphic fi
-le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-9.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-10.png Graphic f
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-9.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-10.png Graphic f
 ile (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-10.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-11.png Graphic f
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-10.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-11.png Graphic f
 ile (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-11.png>
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-58-12.png Graphic f
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-11.png>
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-57-12.png Graphic f
 ile (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-58-12.png>
-
-Overfull \hbox (384.19392pt too wide) in paragraph at lines 2231--2243
-[][] []
- []
-
-
-Overfull \hbox (384.19392pt too wide) in paragraph at lines 2231--2243
-[] []
- []
-
-
-Overfull \hbox (384.19392pt too wide) in paragraph at lines 2231--2243
-[] []
- []
-
-
-Overfull \hbox (384.19392pt too wide) in paragraph at lines 2231--2243
-[] []
- []
-
-
-Overfull \hbox (384.19392pt too wide) in paragraph at lines 2231--2243
-[] []
- []
-
-
-Overfull \hbox (384.19392pt too wide) in paragraph at lines 2231--2243
-[] [] 
- []
-
-[39] [40] [41] [42] [43] [44] [45] [46] [47] [48]
-File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-61-1.png Graphic fi
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-57-12.png>
+[36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-60-1.png Graphic fi
 le (type bmp)
-<03_Linear-Regression_files/figure-latex/unnamed-chunk-61-1.png>
-[49] [50] [51] [52] [53] [54] [55]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2951.
-[56]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2951.
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-60-1.png>
+[47] [48] [49] [50] [51] [52] [53]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2949.
+[54]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2949.
 (./03_Linear-Regression.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 2951.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 2951.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2951.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 2949.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 2949.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2949.
  ) 
 Here is how much of TeX's memory you used:
  29044 strings out of 494988
@@ -2027,4 +1988,4 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  54i,12n,117p,10429b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 03_Linear-Regression.pdf (56 pages).
+Output written on 03_Linear-Regression.pdf (54 pages).

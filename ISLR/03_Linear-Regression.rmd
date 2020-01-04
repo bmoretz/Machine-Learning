@@ -2,8 +2,6 @@
 title: ''
 mainfont: Arial
 fontsize: 12pt
-fig_width: 9
-fig_height: 3.5
 documentclass: report
 header-includes:
 - \PassOptionsToPackage{table}{xcolor}
@@ -39,18 +37,21 @@ header-includes:
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  pdf_document:
+  pdf_document: 
     fig_caption: yes
+    fig_width: 9
     latex_engine: xelatex
 editor_options: 
   chunk_output_type: console
+fig_width: 9
+fig_height: 3.5
 ---
 
 
 ```{r knitr_setup, include = FALSE}
 
 # DO NOT ADD OR REVISE CODE HERE
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, dev = 'png')
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, dev = 'png', fig.width = 9, fig.height = 3.5)
 options(knitr.table.format = "latex")
 
 ```
@@ -382,8 +383,7 @@ This question involves the use of simple linear regression on the "Auto" data se
 i. Is there a relationship between the predictor and the response ?
 
 ```{r}
-library(ISLR)
-data(Auto)
+auto <- as.data.table(ISLR::Auto)
 fit <- lm(mpg ~ horsepower, data = Auto)
 summary(fit)
 ```
@@ -400,16 +400,22 @@ iii. Is the relationship between the predictor and the response positive or nega
 
 iv. What is the predicted $mpg$ associated with a "horsepower" of 98 ? What are the associated 95% confidence and prediction intervals ?
 
+*Predicted Horsepower: `r predict(fit, newdata = data.frame(horsepower = 98))`*
+
+Confidence/Prediction intervals:
+
 ```{r}
 predict(fit, data.frame(horsepower = 98), interval = "confidence")
 predict(fit, data.frame(horsepower = 98), interval = "prediction")
 ```
 
-(b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.
+(b) Plot the response and the predictor. Also display the least squares regression line.
 
 ```{r, fig.height=3}
-plot(Auto$horsepower, Auto$mpg, main = "Scatterplot of mpg vs. horsepower", xlab = "horsepower", ylab = "mpg", col = "blue")
-abline(fit, col = "red")
+ggplot(auto, aes(horsepower, mpg)) +
+   geom_point(alpha = .3) +
+   geom_smooth(se = F, method = "lm") +
+   ggtitle("Scatterplot of mpg vs. horsepower")
 ```
 
 (c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
@@ -424,10 +430,6 @@ plot(fit)
 #### 9.)
 
 This question involves the use of multiple linear regression on the "Auto" data set.
-
-```{r, echo = T}
-auto <- as.data.table(Auto)
-```
 
 (a) Produce a scatterplot matrix which include all the variables in the data set.
 
@@ -470,11 +472,23 @@ summary(lm.fig <- lm(mpg ~ cylinders * displacement+displacement * weight, data 
 
 (f) Try a few different transformations of the variables, such as $\log{X}$, $\sqrt{X}$, $X^2$. Comment on your findings.
 
-```{r}
-par(mfrow = c(2, 2))
-plot(log(Auto$horsepower), Auto$mpg)
-plot(sqrt(Auto$horsepower), Auto$mpg)
-plot((Auto$horsepower)^2, Auto$mpg)
+```{r, fig.height=5}
+p1 <- ggplot(auto, aes(log(horsepower), mpg)) +
+   geom_point() +
+   geom_smooth(se = F, method = "lm") +
+   ggtitle("Log Transform")
+
+p2 <- ggplot(auto, aes(sqrt(horsepower), mpg)) +
+   geom_point() +
+   geom_smooth(se = F, method = "lm") +
+   ggtitle("Sqrt Transform")
+
+p3 <- ggplot(auto, aes(horsepower**2, mpg)) +
+   geom_point() +
+   geom_smooth(se = F, method = "lm") +
+   ggtitle("Squared Transform")
+
+grid.arrange(p1, p2, p3, nrow = 3)
 ```
 
 *We limit ourselves to examining "horsepower" as sole predictor. It seems that the log transformation gives the most linear looking plot.*
@@ -830,7 +844,6 @@ This problem involves the "Boston" data set, which we saw in the lab for this ch
 (a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
 
 ```{r}
-library(MASS)
 attach(Boston)
 fit.zn <- lm(crim ~ zn)
 summary(fit.zn)

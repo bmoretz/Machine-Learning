@@ -399,7 +399,7 @@ ggplot(college, aes(Elite, Outstate)) +
 
 Use the hist() function to produce some histograms with numbers of bins for a few of the quantitative variables.
 
-```{r, echo=T, fig.width=8, fig.height=4}
+```{r, echo=T, fig.width=8, fig.height=8}
 
 p1 <- ggplot(college) +
    geom_histogram(aes(Books), fill = "darkred", bins = 30) +
