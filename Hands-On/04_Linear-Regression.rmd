@@ -131,6 +131,8 @@ data.dir <- paste0(here::here(), "/Hands-On/data/")
 
 select <- dplyr::select # fix clash with MASS
 
+# Set global R options
+options(scipen = 999)
 ```
 
 ```{r pander_setup, include = FALSE}
@@ -168,7 +170,7 @@ ames_train <- training(split)
 ames_test <- testing(split)
 ```
 
-### Simple Linear Model
+## Simple Linear Model
 
 ```{r, echo = T}
 model1 <- lm(Sale_Price ~ Gr_Liv_Area, data = ames_train)
@@ -218,7 +220,7 @@ t-test measure the number of standard deviations each coefficent is away from ze
 
 The confidence interval for coefficents is:
 
-$\hat{\beta_j} \pm t_{1-\alpha/2, n-p}\hat{SE}(\hat{\beta_j})$
+\[\hat{\beta_j} \pm t_{1-\alpha/2, n-p}\hat{SE}(\hat{\beta_j})\]
 
 ```{r, echo = T}
 confint(model1, level = .95)
@@ -231,4 +233,190 @@ Linear Regression Assumptions:
 + 1.) Independent observations
 + 2.) The random errors have mean zero, and constant variance
 + 3.) The random errors are normally distributed
+
+## Multiple Linear Regression
+
+```{r, echo = T}
+(model2 <- lm(Sale_Price ~ Gr_Liv_Area + Year_Built, data = ames_train))
+# Equivalent
+(model2 <- update(model1, . ~ . + Year_Built))
+
+round(coef(model2), 3)
+```
+
+```{r, echo = T}
+summary(model3 <- lm(Sale_Price ~ Gr_Liv_Area + Year_Built + Gr_Liv_Area:Year_Built, data = ames_train))
+
+round(coef(model3), 3)
+```
+
+```{r, echo = T, fig.height=5}
+fit1 <- lm(Sale_Price ~ Gr_Liv_Area + Year_Built, data = ames_train)
+fit2 <- lm(Sale_Price ~ Gr_Liv_Area * Year_Built, data = ames_train)
+
+# Regression plane
+plot_grid <- expand.grid(
+   Gr_Liv_Area = seq(from = min(ames_train$Gr_Liv_Area), to = max(ames_train$Gr_Liv_Area),
+                     length = 100),
+   Year_Built = seq(from = min(ames_train$Year_Built), to = max(ames_train$Year_Built),
+                     length = 100)
+)
+
+plot_grid$y1 <- predict(fit1, newdata = plot_grid)
+plot_grid$y2 <- predict(fit2, newdata = plot_grid)
+
+# Level plots
+p1 <- ggplot(plot_grid, aes(x = Gr_Liv_Area, y = Year_Built,
+                      z = y1, fill = y1)) +
+   geom_tile() +
+   geom_contour(color = "white") +
+   viridis::scale_fill_viridis(name = "Predicted\nvalue", option = "inferno") +
+   theme_bw() +
+   ggtitle("Main Effects Only")
+
+p2 <- ggplot(plot_grid, aes(x = Gr_Liv_Area, y = Year_Built,
+                      z = y2, fill = y2)) +
+   geom_tile() +
+   geom_contour(color = "white") +
+   viridis::scale_fill_viridis(name = "Predicted\nvalue", option = "inferno") +
+   theme_bw() +
+   ggtitle("Main effect with two-way interaction")
+
+gridExtra::grid.arrange(p1, p2, nrow = 2)
+```
+
+Full Model
+
+```{r, echo = T}
+model3 <- lm(Sale_Price ~ ., data = ames_train)
+broom::tidy(model3)
+```
+
+### Assessing Model Accuracy
+
+Models 1/2/3:
+
+```{r, echo = T}
+# Train model using 10-fold cross-validation
+
+set.seed(123) # for reproducibility
+
+(cv_model <- train(
+   form = Sale_Price ~ Gr_Liv_Area,
+   data = ames_train,
+   method = "lm",
+   trControl = trainControl(method = "cv", number = 10)
+))
+
+set.seed(123)
+
+cv_model2 <- train(
+   Sale_Price ~ Gr_Liv_Area + Year_Built,
+   data = ames_train,
+   method = "lm",
+   trControl = trainControl(method = "cv", number = 10)
+)
+
+set.seed(123)
+
+suppressWarnings({
+   cv_model3 <- train(
+      Sale_Price ~ .,
+      data = ames_train,
+      method = "lm",
+      trControl = trainControl(method = "cv", number = 10)
+   )
+})
+```
+
+__Accuracy__:
+
+```{r}
+summary(resamples(list(
+   model1 = cv_model,
+   model2 = cv_model2,
+   model3 = cv_model3
+)))
+```
+
+### Model Concerns / Assumptions
+
+#### 1.) Linear Relationships
+
+Possible solution to non-linear relationship is by variable transformations:
+
+```{r, echo = T}
+
+p1 <- ggplot(ames_train, aes(Year_Built, Sale_Price)) +
+   geom_point(size = 1, alpha = .4) +
+   geom_smooth(se = F) +
+   scale_y_continuous(labels = scales::dollar) +
+   xlab("Year Built") +
+   ggtitle(paste("Non-transformed variables with a \n", "non-linear relationship"))
+
+p2 <- ggplot(ames_train, aes(Year_Built, Sale_Price)) +
+   geom_point(size = 1, alpha = .4) +
+   geom_smooth(se = F, method = "lm") +
+   scale_y_log10("Sale Price", labels = scales::dollar, breaks = seq(0, 400000, by = 100000)) +
+   xlab("Year Built") +
+   ggtitle(paste("Transforming variables can provide a \n", "near-linear relationship"))
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+```
+
+#### 2.) Constant variance among residuals
+
+Linear models assume constant variance amoung error terms (_homoscedasticity_).
+
+Notice the cone shape in Model 1:
+
+```{r, echo = T}
+df1 <- broom::augment(cv_model$finalModel, data = ames_train)
+
+p1 <- ggplot(df1, aes(.fitted, .resid)) +
+   geom_point(size = 1, alpha = .4) +
+   xlab("Predicted Values") +
+   ylab("Residuals") +
+   ggtitle("Model 1", subtitle = "Sale_Price ~ Gr_Liv_Area")
+
+df2 <- broom::augment(cv_model3$finalModel, data = ames_train)
+
+p2 <- ggplot(df2, aes(.fitted, .resid)) +
+   geom_point(size = 1, alpha = .4) +
+   xlab("Predicted Values") +
+   ylab("Residuals") +
+   ggtitle("Model 3", subtitle = "Sale_Price ~ .")
+
+gridExtra::grid.arrange(p1, p2, nrow =1)
+```
+
+#### 3.) No autocorrelation
+
+Residuals should be uncorrelated and i.i.d.
+
+```{r}
+df1 <- mutate(df1, id = row_number())
+df2 <- mutate(df2, id = row_number())
+
+p1 <- ggplot(df1, aes(id, .resid)) +
+   geom_point(size = 1, alpha = .4) +
+   geom_smooth(se = F) +
+   xlab("Row ID") +
+   ylab("Residuals") +
+   ggtitle("Model 1", subtitle = "Correlated Residuals")
+
+p2 <- ggplot(df2, aes(id, .resid)) +
+   geom_point(size = 1, alpha = .4) +
+   geom_smooth(se = F) +
+   xlab("Row ID") +
+   ylab("Residuals") +
+   ggtitle("Model 3", subtitle = "Uncorrelated Residuals")
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+
+```
+
+Model 1 has a distict pattern to the residuals (due to being ordered by neighborhood, which is unaccounted for in the model)
+
+#### 4.) More observations than predictors
 
