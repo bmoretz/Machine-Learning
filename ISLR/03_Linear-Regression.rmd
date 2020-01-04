@@ -88,6 +88,7 @@ library(formattable, quietly = TRUE, warn.conflicts = FALSE)
 library(here, quietly = TRUE, warn.conflicts = FALSE)
 
 # Resampling & Modeling
+library(car, quietly = TRUE, warn.conflicts = FALSE)
 library(MASS, quietly = TRUE, warn.conflicts = FALSE)
 library(ISLR, quietly = TRUE, warn.conflicts = FALSE)
 library(rsample, quietly = TRUE, warn.conflicts = FALSE)
@@ -118,6 +119,7 @@ theme_update(axis.text.x = element_text(size = 10),
 
 data.dir <- paste0(here::here(), "/datasets/")
 
+select <- dplyr::select
 ```
 
 ## Chapter 3
@@ -137,13 +139,326 @@ panderOptions('keep.trailing.zeros', TRUE)
 ### R Lab
 
 ```{r, echo = T, fig.width=8, fig.height=3.5}
+boston <- Boston
+head(boston)
 
+names(boston)
+```
+
+Simple Linear Regression
+
+```{r, echo = T}
+summary(lm.fit <- lm(medv ~ lstat, data = boston))
+
+coef(lm.fit)
+```
+
+```{r, echo = T}
+confint(lm.fit)
+
+predict(lm.fit, data.frame(lstat = c(5, 10, 15)), 
+        interval = "confidence")
+
+predict(lm.fit, data.frame(lstat = c(5, 10, 15)), 
+        interval = "prediction")
+```
+
+```{r, echo = T, fig.width=9, fig.height=3.5, fig.cap=""}
+ggplot(boston, aes(lstat, medv)) +
+   geom_point() +
+   geom_smooth(method = "lm")
+```
+
+```{r, echo = T, fig.width=9, fig.height=3.5, fig.cap=""}
+with(boston, {
+   plot(lstat, medv)
+   abline(lm.fit, col ="darkred")
+   abline(lm.fit, lwd = 3, col = "darkred")
+})
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+par(mfrow = c(2,2))
+with(boston, {
+   plot(lm.fit)
+})
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+par(mfrow = c(1,2))
+plot(predict(lm.fit), residuals(lm.fit))
+plot(predict(lm.fit), rstudent(lm.fit))
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+par(mfrow = c(1,1))
+plot(hatvalues(lm.fit))
+which.max(hatvalues(lm.fit))
+```
+
+### Multiple Liinear Regression
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+summary(lm.fit <- lm(medv ~ lstat + age, data = boston))
+summary(lm.fit <- lm(medv ~ ., data = boston))
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+vif(lm.fit)
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+summary(lm.fit1 <- lm(medv ~ .-age, data = boston))
+```
+
+### Interaction Terms
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+summary(lm(medv ~ lstat*age, data = boston))
+```
+
+### Non-linear Transformations of the Predictors
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+summary(lm.fit2 <- lm(medv ~ lstat + I(lstat^2), data = boston))
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+lm.fit <- lm(medv ~ lstat, data = boston)
+anova(lm.fit, lm.fit2)
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+par(mfrow = c(2,2))
+with(boston, {
+   plot(lm.fit2)
+})
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+summary(lm.fit5 <- lm(medv ~ poly(lstat, 5), data = boston))
+```
+
+```{r, echo = T, fig.width=9, fig.height=4, fig.cap=""}
+summary(lm.fit5 <- lm(medv ~ log(rm), data = boston))
+```
+
+### Qualitative Predictors
+
+```{r, echo = T}
+carseats <- Carseats
+summary(carseats)
+```
+
+```{r, echo = T}
+summary(lm.fit <- lm(Sales ~ . + Income:Advertising+Price:Age, data = carseats))
+
+contrasts(carseats$ShelveLoc)
 ```
 
 ### Conceptual
 
 #### 1.)
 
+Describe the null hypothesis to which the p-values given in Table 3.4 correspond. Explain what conclusions you can draw based on these p-values.
+
+a.)
+
+$H_0 : TV = 0, H_a : TV != 0$
+
+*With a p-value of less than 0.0001, we reject the null hypothesis that the TV advertising budget does not effect sales.*
+
+b.)
+
+$H_0 : radio = 0, H_a : radio != 0$
+
+*With a p-value of less than 0.0001, we reject the null hypothesis that the radio advertising budget does not effect sales.*
+
+c.)
+
+$H_0 : newspaper = 0, H_a : newspaper != 0$
+
+*With a p-value of .8599, we fail to reject the null hypothesis that the newspaper advertising budget does not effect sales.*
+
+#### 2.)
+
+Carefully explain the differences between the KNN classifier and KNN regression methods.
+
+*KNN regression uses the same basic technique as the classifier, which is to take a specified number of neighbors (based on some distance measure, _d_) and average them together to generate a value for the response. The difference here is that the regression returns a continious response variable, and the classificer results in a discrete metric that is based on the probability generated from the average of the neighbors.*
+
+#### 3.)
+
+Suppose we have a data set with five predictors, $X_1$ = GPA, $X_2$ = IQ, $X_3$ = Gender (1 Female/0 Male), $X_4$ Interaction Between GPA and IQ, $X_5$ = Interaction between GPA and Gender.
+
+The response is starting salary after graduation (in thousands of dollars).
+
+Suppose we use least squares to fit the model, and get $\hat{\beta}_0 = 50, \hat{\beta}_1 = 20, \hat{\beta}_2 = 0.07, \hat{\beta}_3 = 35, \hat{\beta}_4 = 0.01, \hat{\beta}_5 = -10$.
+
+a.)
+
+i. For a fixed value of IQ and GPA, males earn more on average than females.
+ii. For a fixed value of IQ and GPA, females earn more on average than males.
+iii. For a fixed value of IQ and GPA, males earn more on average than females provided that the GPA is high enough.
+iv. For a fixed value of IQ and GPA, females earn more on average than males provided that the GPA is high enough.
+
+*The least square line is given by
+\[\hat{y} = 50 + 20GPA + 0.07IQ + 35Gender + 0.01GPA\times IQ - 10GPA\times Gender\]
+which becomes for the males
+\[\hat{y} = 50 + 20GPA + 0.07IQ + 0.01GPA\times IQ,\]
+and for the females
+\[\hat{y} = 85 + 10GPA + 0.07IQ + 0.01GPA\times IQ.\]
+So the starting salary for males is higher than for females on average iff $50 + 20GPA\ge 85 + 10GPA$ which is equivalent to $GPA\ge 3.5$. Therefore iii. is the right answer.*
+
+(b) Predict the salary of a female with IQ of 110 and a GPA of 4.0.
+
+*It suffices to plug in the given values in the least square line for females given above and we obtain
+\[\hat{y} = 85 + 40 + 7.7 + 4.4 = 137.1,\]
+which gives us a starting salary of $137100\$$.*
+
+(c) True or false: Since the coefficient for the GPA/IQ interaction term is very small, there is very little evidence of an interaction effect. Justify your answer.
+
+*False. To verify if the GPA/IQ has an impact on the quality of the model we need to test the hypothesis $H_0 : \hat{\beta_4} = 0$ and look at the p-value associated with the $t$ or the $F$ statistic to draw a conclusion.*
+
+#### 4.)
+
+I collect a set of data ($n = 100$ observations) containing a single predictor and a quantitative response. I then fit a linear regression model to the data, as well as a separate cubic regression, i.e. $Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \varepsilon$ .
+
+(a) Suppose that the true relationship between $X$ and $Y$ is linear, i.e. $Y = \beta_0 + \beta_1 X + \varepsilon$. Consider the training residual sum of squares (RSS) for the linear regression, and also the training RSS for the cubic regression. Would we expect one to be lower than the other, would we expect them to be the same, or is there not enough information to tell? Justify your answer.
+
+*Without knowing more details about the training data, it is difficult to know which training RSS is lower between linear or cubic. However, as the true relationship between $X$ and $Y$ is linear, we may expect the least squares line to be close to the true regression line, and consequently the RSS for the linear regression may be lower than for the cubic regression.*
+
+(b) Answer (a) using test rather than training RSS.
+
+*In this case the test RSS depends upon the test data, so we have not enough information to conclude. However, we may assume that polynomial regression will have a higher test RSS as the overfit from training would have more error than the linear regression.*
+
+(c) Suppose that the true relationship between X and Y is not linear, but we don’t know how far it is from linear. Consider the training RSS for the linear regression, and also the training RSS for the cubic regression. Would we expect one to be lower than the other, would we expect them to be the same, or is there not enough information to tell? Justify your answer.
+
+*Polynomial regression has lower train RSS than the linear fit because of higher flexibility: no matter what the underlying true relationship is the more flexible model will closer follow points and reduce train RSS. An example of this beahvior is shown on Figure 2.9 from Chapter 2.*
+
+(d) Answer (c) using test rather than training RSS.
+
+*There is not enough information to tell which test RSS would be lower for either regression given the problem statement is defined as not knowing "how far it is from linear". If it is closer to linear than cubic, the linear regression test RSS could be lower than the cubic regression test RSS. Or, if it is closer to cubic than linear, the cubic regression test RSS could be lower than the linear regression test RSS. It is dues to bias-variance tradeoff: it is not clear what level of flexibility will fit data better.*
+
+#### 5.)
+
+Consider the fitted values that result from performing linear regression without an intercept. In this setting, the i-th fitted value takes the form $\hat{y_i} = x_i\hat{\beta}$, where
+\[\hat{\beta} = \frac{\sum_{i=1}^n x_iy_i}{\sum_{k=1}^nx_k^2}.\]
+Show that we can write
+\[\hat{y}_i = \sum_{j=1}^na_jy_j.\]
+What is $a_j$ ?
+
+*We have immediately that
+\[\hat{y}_i = x_i\frac{\sum_{j=1}^n x_jy_j}{\sum_{k=1}^nx_k^2} = \sum_{j=1}^n\frac{x_ix_j}{\sum_{k=1}^nx_k^2}y_j = \sum_{j=1}^na_jy_j.\]*
+
+#### 6.)
+
+Using (3.4), argue that in the case of simple linear regression, the least squares line always passes through the point $(\overline{x},\overline{y})$.
+
+*The least square line equation is $y = \hat{\beta}_0 + \hat{\beta}_1x$, so if we substitute $\overline{x}$ for $x$ we obtain
+\[y = \hat{\beta}_0 + \hat{\beta}_1\overline{x} = \overline{y} - \hat{\beta}_1\overline{x} + \hat{\beta}_1\overline{x} = \overline{y}.\]
+We may conclude that the least square line passes through the point $(\overline{x},\overline{y})$.*
+
+#### 7.)
+
+It is claimed in the text that in the case of simple linear regression of $Y$ onto $X$, the $R^2$ statistic (3.17) is equal to the square of the correlation between $X$ and $Y$ (3.18). Prove that this is the case. For simplicity, you may assume that $\overline{x} = \overline{y} = 0$.
+
+*We have the following equalities
+\[R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum_i(y_i - \hat{y}_i)^2}{\sum_jy_j^2};\]
+with $\hat{y}_i = \hat{\beta}_1x_i$ we may write
+\[R^2 = 1 - \frac{\sum_i(y_i - \sum_jx_jy_j/\sum_jx_j^2 x_i)^2}{\sum_jy_j^2} = \frac{\sum_jy_j^2 - (\sum_iy_i^2 - 2\sum_iy_i(\sum_jx_jy_j/\sum_jx_j^2)x_i + \sum_i(\sum_jx_jy_j/\sum_jx_j^2)^2x_i^2)}{\sum_jy_j^2}\]
+and finally
+\[R^2 = \frac{2(\sum_ix_iy_i)^2/\sum_jx_j^2 - (\sum_ix_iy_i)^2/\sum_jx_j^2}{\sum_jy_j^2} = \frac{(\sum_ix_iy_i)^2}{\sum_jx_j^2\sum_jy_j^2} = Cor(X, Y)^2.\]*
+
 ### Applied
 
-####
+#### 8.)
+
+This question involves the use of simple linear regression on the "Auto" data set.
+
+(a) Use the lm() function to perform a simple linear regression with "mpg" as the response and "horsepower" as the predictor. Use the summary() function to print the results. Comment on the output. For example :
+
+i. Is there a relationship between the predictor and the response ?
+
+```{r}
+library(ISLR)
+data(Auto)
+fit <- lm(mpg ~ horsepower, data = Auto)
+summary(fit)
+```
+
+*We can answer this question by testing the hypothesis $H_0 : \beta_i = 0\ \forall i$. The p-value corresponding to the F-statistic is `r as.numeric(pf(summary(fit)$fstatistic[1], summary(fit)$fstatistic[2], summary(fit)$fstatistic[3], lower.tail = F))`, this indicates a clear evidence of a relationship between "mpg" and "horsepower".*
+
+ii. How strong is the relationship between the predictor and the response ?
+
+*To calculate the residual error relative to the response we use the mean of the response and the RSE. The mean of mpg is `r mean(Auto$mpg)`. The RSE of the lm.fit was `r summary(fit)$sigma` which indicates a percentage error of `r summary(fit)$sigma / mean(Auto$mpg) * 100`%. We may also note that as the $R^2$ is equal to `r summary(fit)$r.sq`, almost `r summary(fit)$r.sq * 100`% of the variability in "mpg" can be explained using "horsepower".*
+
+iii. Is the relationship between the predictor and the response positive or negative ?
+
+*As the coeficient of "horsepower" is negative, the relationship is also negative. The more horsepower an automobile has the linear regression indicates the less mpg fuel efficiency the automobile will have.*
+
+iv. What is the predicted $mpg$ associated with a "horsepower" of 98 ? What are the associated 95% confidence and prediction intervals ?
+
+```{r}
+predict(fit, data.frame(horsepower = 98), interval = "confidence")
+predict(fit, data.frame(horsepower = 98), interval = "prediction")
+```
+
+(b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.
+
+```{r}
+plot(Auto$horsepower, Auto$mpg, main = "Scatterplot of mpg vs. horsepower", xlab = "horsepower", ylab = "mpg", col = "blue")
+abline(fit, col = "red")
+```
+
+(c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
+
+```{r}
+par(mfrow = c(2, 2))
+plot(fit)
+```
+
+*The plot of residuals versus fitted values indicates the presence of non linearity in the data. The plot of standardized residuals versus leverage indicates the presence of a few outliers (higher than 2 or lower than -2) and a few high leverage points.*
+
+#### 9.)
+
+This question involves the use of multiple linear regression on the Auto data set.
+
+(a) Produce a scatterplot matrix which include all the variables in the data set.
+
+(b) Compute the matrix of correlations between the variables using the function cor(). You will need to exclude the "name" variable, which is qualitative.
+
+(c) Use the lm() function to perform a multiple linear regression with "mpg" as the response and all other variables except "name" as the predictors. Use the summary() function to print the results. Comment on the output. For instance :
+
+i. Is there a relationship between the predictors and the response ?
+
+(d) Use the plot() function to produce diagnostic plots of the linear regression fit. Comment on any problems you see with the fit. Do the residual plots suggest any unusually large outliers ? Does the leverage plots identify any observations with unusually high leverages ?
+
+(e) Use the * and : symbols to fit linear regression models with interaction effects. Do any interactions appear to be statistically significant ?
+
+(f) Try a few different transformations of the variables, such as $\log{X}$, $\sqrt{X}$, $X^2$. Comment on your findings.
+
+#### 10.)
+
+This question should be answered using the "Carseats" data set.
+
+(a) Fit a multiple regression model to predict "Sales" using "Price", "Urban" and "US
+
+(b) Provide an interpretation of each coefficient in the model. Be careful - some of the variables in the model are qualitative !
+
+(c) Write out the model in equation form, being careful to handle the qualitative variables properly.
+
+(d) For which of the predictors can you reject the null hypothesis $H_0 : \beta_j = 0$ ?
+
+(e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome.
+
+(f) How well do the models in (a) and (e) fit the data ?
+
+(g) Using the model from (e), obtain 95% confidence intervals for the coefficient(s).
+
+(h) Is there evidence of outliers or high leverage observations in the model from (e) ?
+
+#### 11.)
+#### 12.)
+#### 13.)
+#### 14.)
+#### 15.)

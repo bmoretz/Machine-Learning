@@ -596,3 +596,42 @@ baked_test <- bake(prepare, new_data = ames_test)
 baked_train
 ```
 
+Full recipe with cross-validation & grid search using carat.
+
+```{r engineering-knn-blueprint}
+blueprint <- recipe(Sale_Price ~ ., data = ames_train) %>%
+  step_nzv(all_nominal()) %>%
+  step_integer(matches("Qual|Cond|QC|Qu")) %>%
+  step_center(all_numeric(), -all_outcomes()) %>%
+  step_scale(all_numeric(), -all_outcomes()) %>%
+  step_dummy(all_nominal(), -all_outcomes(), one_hot = TRUE)
+```
+
+```{r engineering-knn-with-blueprint}
+# Specify resampling plan
+cv <- trainControl(
+  method = "repeatedcv", 
+  number = 10, 
+  repeats = 5
+)
+
+# Construct grid of hyperparameter values
+hyper_grid <- expand.grid(k = seq(2, 25, by = 1))
+
+# Tune a knn model using grid search
+knn_fit2 <- train(
+  blueprint, 
+  data = ames_train, 
+  method = "knn", 
+  trControl = cv, 
+  tuneGrid = hyper_grid,
+  metric = "RMSE"
+)
+```
+
+```{r engineering-knn-with-blueprint-assess, fig.height=3, fig.cap="Results from the same grid search performed in Section 2.7 but with feature engineering performed within each resample."}
+# print model results
+knn_fit2
+# plot cross validation results
+ggplot(knn_fit2)
+```

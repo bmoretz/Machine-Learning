@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  3 JAN 2020 10:57
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  3 JAN 2020 19:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**03_Feature_Target_Engineering.tex
-(./03_Feature_Target_Engineering.tex
+**03_Linear-Regression.tex
+(./03_Linear-Regression.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
@@ -1160,8 +1160,8 @@ LaTeX Font Info:    Font shape `TU/Arial(0)/bx/n' will be
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/tuenc.def
 File: tuenc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding TU on input line 82.
-))) (./03_Feature_Target_Engineering.aux)
-\openout1 = `03_Feature_Target_Engineering.aux'.
+))) (./03_Linear-Regression.aux)
+\openout1 = `03_Linear-Regression.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
 LaTeX Font Info:    ... okay on input line 143.
@@ -1469,9 +1469,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 143.
 LaTeX Info: Redefining \pageref on input line 143.
 LaTeX Info: Redefining \nameref on input line 143.
-(./03_Feature_Target_Engineering.out) (./03_Feature_Target_Engineering.out)
+(./03_Linear-Regression.out) (./03_Linear-Regression.out)
 \@outlinefile=\write4
-\openout4 = `03_Feature_Target_Engineering.out'.
+\openout4 = `03_Linear-Regression.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1517,53 +1517,41 @@ Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 14.36246pt on input line 147.
+(Font)              scaled to size 14.36246pt on input line 146.
 LaTeX Font Info:    Font shape `TU/Arial(0)/bx/n' will be
-(Font)              scaled to size 14.36246pt on input line 147.
+(Font)              scaled to size 14.36246pt on input line 146.
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 11.96872pt on input line 150.
+(Font)              scaled to size 11.96872pt on input line 149.
 LaTeX Font Info:    Font shape `TU/Arial(0)/bx/n' will be
-(Font)              scaled to size 11.96872pt on input line 150.
+(Font)              scaled to size 11.96872pt on input line 149.
 
-Package xcolor Warning: Incompatible color definition on input line 154.
+Package xcolor Warning: Incompatible color definition on input line 151.
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 156.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 154.
 
-Package xcolor Warning: Incompatible color definition on input line 159.
-
-
-Package xcolor Warning: Incompatible color definition on input line 159.
+Package xcolor Warning: Incompatible color definition on input line 156.
 
 
-Package xcolor Warning: Incompatible color definition on input line 163.
+Package xcolor Warning: Incompatible color definition on input line 156.
 
 
-Package xcolor Warning: Incompatible color definition on input line 173.
+Package xcolor Warning: Incompatible color definition on input line 175.
 
 
-Package xcolor Warning: Incompatible color definition on input line 173.
+Package xcolor Warning: Incompatible color definition on input line 179.
 
 
-Package xcolor Warning: Incompatible color definition on input line 177.
+Package xcolor Warning: Incompatible color definition on input line 179.
 
 
-Package xcolor Warning: Incompatible color definition on input line 184.
+Package xcolor Warning: Incompatible color definition on input line 188.
 
 
-Package xcolor Warning: Incompatible color definition on input line 184.
+Package xcolor Warning: Incompatible color definition on input line 192.
 
 
-Package xcolor Warning: Incompatible color definition on input line 202.
-
-
-Package xcolor Warning: Incompatible color definition on input line 215.
-
-
-Package xcolor Warning: Incompatible color definition on input line 215.
-
-
-Package xcolor Warning: Incompatible color definition on input line 215.
+Package xcolor Warning: Incompatible color definition on input line 192.
 
 [1
 
@@ -1572,270 +1560,297 @@ Package xcolor Warning: Incompatible color definition on input line 215.
 Package xcolor Warning: Incompatible color definition on input line 215.
 
 
-Package xcolor Warning: Incompatible color definition on input line 215.
+Package xcolor Warning: Incompatible color definition on input line 219.
 
 
-Package xcolor Warning: Incompatible color definition on input line 223.
+Package xcolor Warning: Incompatible color definition on input line 219.
 
 
-Package xcolor Warning: Incompatible color definition on input line 247.
+Package xcolor Warning: Incompatible color definition on input line 226.
 
 
-Package xcolor Warning: Incompatible color definition on input line 247.
+Package xcolor Warning: Incompatible color definition on input line 230.
 
-File: 03_Feature_Target_Engineering_files/figure-latex/engineering-distribution
--comparison-1.png Graphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/engineering-distribution-comp
-arison-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 258.
+Package xcolor Warning: Incompatible color definition on input line 230.
+
+
+Package xcolor Warning: Incompatible color definition on input line 238.
+
+
+Package xcolor Warning: Incompatible color definition on input line 243.
+
+
+Package xcolor Warning: Incompatible color definition on input line 243.
+
+
+Package xcolor Warning: Incompatible color definition on input line 252.
+
+
+Package xcolor Warning: Incompatible color definition on input line 257.
+
+
+Package xcolor Warning: Incompatible color definition on input line 257.
+
+
+Package xcolor Warning: Incompatible color definition on input line 266.
+
+
+Package xcolor Warning: Incompatible color definition on input line 272.
+
+
+Package xcolor Warning: Incompatible color definition on input line 272.
+
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-4-1.png Graphic fil
+e (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-4-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 276.
 
 [2]
 
-Package xcolor Warning: Incompatible color definition on input line 262.
+Package xcolor Warning: Incompatible color definition on input line 284.
 
 
-Package xcolor Warning: Incompatible color definition on input line 262.
+Package xcolor Warning: Incompatible color definition on input line 284.
 
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-5-1.png Graphic fil
+e (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-5-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 268.
-
-
-Package xcolor Warning: Incompatible color definition on input line 283.
-
-
-Package xcolor Warning: Incompatible color definition on input line 283.
-
-File: 03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-6-1.png Gr
-aphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-6-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 289.
+Package xcolor Warning: Incompatible color definition on input line 288.
 
 
 Package xcolor Warning: Incompatible color definition on input line 295.
 
 
 Package xcolor Warning: Incompatible color definition on input line 295.
+
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-6-1.png Graphic fil
+e (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-6-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 299.
 
 [3]
 
-Package xcolor Warning: Incompatible color definition on input line 317.
+Package xcolor Warning: Incompatible color definition on input line 305.
 
 
-Package xcolor Warning: Incompatible color definition on input line 321.
+Package xcolor Warning: Incompatible color definition on input line 305.
+
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-7-1.png Graphic fil
+e (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-7-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 309.
 
 
-Package xcolor Warning: Incompatible color definition on input line 321.
-
-File: 03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-8-1.png Gr
-aphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-8-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 330.
+Package xcolor Warning: Incompatible color definition on input line 314.
 
 
-Package xcolor Warning: Incompatible color definition on input line 335.
+Package xcolor Warning: Incompatible color definition on input line 314.
 
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-8-1.png Graphic fil
+e (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-8-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 335.
+Package xcolor Warning: Incompatible color definition on input line 318.
 
 [4]
 
-Package xcolor Warning: Incompatible color definition on input line 354.
+Package xcolor Warning: Incompatible color definition on input line 322.
 
 
-Package xcolor Warning: Incompatible color definition on input line 359.
+Package xcolor Warning: Incompatible color definition on input line 322.
 
 
-Package xcolor Warning: Incompatible color definition on input line 359.
+Package xcolor Warning: Incompatible color definition on input line 333.
 
 
-Package xcolor Warning: Incompatible color definition on input line 376.
+Package xcolor Warning: Incompatible color definition on input line 337.
 
 
-Package xcolor Warning: Incompatible color definition on input line 435.
-
-
-Package xcolor Warning: Incompatible color definition on input line 435.
-
-
-Underfull \vbox (badness 3792) detected at line 435
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 435.
+Package xcolor Warning: Incompatible color definition on input line 337.
 
 [5]
 
-Package xcolor Warning: Incompatible color definition on input line 435.
+Package xcolor Warning: Incompatible color definition on input line 361.
 
 
-Package xcolor Warning: Incompatible color definition on input line 435.
-
-File: 03_Feature_Target_Engineering_files/figure-latex/engineering-imputation-e
-xamples-1.png Graphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/engineering-imputation-exampl
-es-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 455.
-
-[6] [7]
-
-Package xcolor Warning: Incompatible color definition on input line 476.
+Package xcolor Warning: Incompatible color definition on input line 365.
 
 
-Package xcolor Warning: Incompatible color definition on input line 476.
+Package xcolor Warning: Incompatible color definition on input line 365.
 
 
-Package xcolor Warning: Incompatible color definition on input line 488.
+Package xcolor Warning: Incompatible color definition on input line 400.
 
 
-Package xcolor Warning: Incompatible color definition on input line 496.
+Package xcolor Warning: Incompatible color definition on input line 404.
 
 
-Package xcolor Warning: Incompatible color definition on input line 496.
+Package xcolor Warning: Incompatible color definition on input line 404.
 
-File: 03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-11-1.png G
-raphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/unnamed-chunk-11-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 500.
+Package xcolor Warning: Incompatible color definition on input line 413.
+
+
+Package xcolor Warning: Incompatible color definition on input line 417.
+
+
+Package xcolor Warning: Incompatible color definition on input line 417.
+
+[6]
+
+Package xcolor Warning: Incompatible color definition on input line 454.
+
+
+Package xcolor Warning: Incompatible color definition on input line 458.
+
+
+Package xcolor Warning: Incompatible color definition on input line 458.
+
+[7]
+
+Package xcolor Warning: Incompatible color definition on input line 487.
+
+
+Package xcolor Warning: Incompatible color definition on input line 491.
+
+
+Package xcolor Warning: Incompatible color definition on input line 491.
+
+
+Package xcolor Warning: Incompatible color definition on input line 515.
+
+
+Package xcolor Warning: Incompatible color definition on input line 520.
+
+
+Package xcolor Warning: Incompatible color definition on input line 520.
 
 [8]
 
-Package xcolor Warning: Incompatible color definition on input line 516.
+Package xcolor Warning: Incompatible color definition on input line 534.
 
-
-Package xcolor Warning: Incompatible color definition on input line 516.
-
-File: 03_Feature_Target_Engineering_files/figure-latex/engineering-impact-on-ti
-me-1.png Graphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/engineering-impact-on-time-1.
-png>
 
 Package xcolor Warning: Incompatible color definition on input line 541.
 
 
-Package xcolor Warning: Incompatible color definition on input line 547.
+Package xcolor Warning: Incompatible color definition on input line 541.
+
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-15-1.png Graphic fi
+le (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-15-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 545.
 
 
-Package xcolor Warning: Incompatible color definition on input line 547.
+Package xcolor Warning: Incompatible color definition on input line 549.
 
-[9] [10]
+
+Package xcolor Warning: Incompatible color definition on input line 549.
+
+[9]
+
+Package xcolor Warning: Incompatible color definition on input line 576.
+
+
+Package xcolor Warning: Incompatible color definition on input line 580.
+
+
+Package xcolor Warning: Incompatible color definition on input line 580.
+
 
 Package xcolor Warning: Incompatible color definition on input line 606.
 
 
-Package xcolor Warning: Incompatible color definition on input line 612.
+Package xcolor Warning: Incompatible color definition on input line 611.
 
 
-Package xcolor Warning: Incompatible color definition on input line 612.
+Package xcolor Warning: Incompatible color definition on input line 611.
+
+[10]
+
+Package xcolor Warning: Incompatible color definition on input line 637.
 
 
-Package xcolor Warning: Incompatible color definition on input line 630.
+Package xcolor Warning: Incompatible color definition on input line 641.
 
 
-Package xcolor Warning: Incompatible color definition on input line 665.
+Package xcolor Warning: Incompatible color definition on input line 641.
 
 
-Package xcolor Warning: Incompatible color definition on input line 665.
+Package xcolor Warning: Incompatible color definition on input line 676.
 
 
-Package xcolor Warning: Incompatible color definition on input line 665.
+Package xcolor Warning: Incompatible color definition on input line 680.
+
+
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 [11]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.41483pt on input line 701.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.97688pt on input line 701.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 701.
 
-Package xcolor Warning: Incompatible color definition on input line 665.
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 12.00018pt on input line 701.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.41495pt on input line 701.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.97696pt on input line 701.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 11.99982pt on input line 701.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.41469pt on input line 701.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.97679pt on input line 701.
+LaTeX Font Info:    Try loading font information for U+msa on input line 701.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 701.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+) [12] [13] [14]
+Overfull \hbox (30.20131pt too wide) detected at line 919
+[][] [] [] [] [] [] []
+ []
 
-
-Package xcolor Warning: Incompatible color definition on input line 665.
-
-File: 03_Feature_Target_Engineering_files/figure-latex/engineering-standardizin
-g-1.png Graphic file (type bmp)
-<03_Feature_Target_Engineering_files/figure-latex/engineering-standardizing-1.p
-ng>
-[12]
-
-Package xcolor Warning: Incompatible color definition on input line 689.
-
-
-Package xcolor Warning: Incompatible color definition on input line 693.
-
-
-Package xcolor Warning: Incompatible color definition on input line 693.
-
-
-Package xcolor Warning: Incompatible color definition on input line 712.
-
-
-Package xcolor Warning: Incompatible color definition on input line 716.
-
-
-Package xcolor Warning: Incompatible color definition on input line 716.
-
-
-Package xcolor Warning: Incompatible color definition on input line 740.
-
-[13]
-
-Package xcolor Warning: Incompatible color definition on input line 754.
-
-
-Package xcolor Warning: Incompatible color definition on input line 754.
-
-
-Package xcolor Warning: Incompatible color definition on input line 773.
-
-
-Package xcolor Warning: Incompatible color definition on input line 778.
-
-
-Package xcolor Warning: Incompatible color definition on input line 778.
-
-
-Package xcolor Warning: Incompatible color definition on input line 788.
-
-
-Package xcolor Warning: Incompatible color definition on input line 793.
-
-
-Package xcolor Warning: Incompatible color definition on input line 793.
-
-[14]
-
-Package xcolor Warning: Incompatible color definition on input line 808.
-
-
-Package xcolor Warning: Incompatible color definition on input line 816.
-
-
-Package xcolor Warning: Incompatible color definition on input line 816.
-
-
-Package xcolor Warning: Incompatible color definition on input line 831.
-
-
-Package xcolor Warning: Incompatible color definition on input line 838.
-
-
-Package xcolor Warning: Incompatible color definition on input line 838.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 853.
 [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 853.
-(./03_Feature_Target_Engineering.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 853.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 853.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 853.
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-22-1.png Graphic fi
+le (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-22-1.png>
+[16]
+File: 03_Linear-Regression_files/figure-latex/unnamed-chunk-23-1.png Graphic fi
+le (type bmp)
+<03_Linear-Regression_files/figure-latex/unnamed-chunk-23-1.png>
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1049.
+[17]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1049.
+(./03_Linear-Regression.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1049.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1049.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1049.
  ) 
 Here is how much of TeX's memory you used:
- 28855 strings out of 494988
- 515970 string characters out of 6178637
- 741283 words of memory out of 5000000
- 32425 multiletter control sequences out of 15000+600000
- 531020 words of font info for 45 fonts, out of 8000000 for 9000
+ 28941 strings out of 494988
+ 518300 string characters out of 6178637
+ 741372 words of memory out of 5000000
+ 32477 multiletter control sequences out of 15000+600000
+ 533836 words of font info for 61 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 51i,12n,117p,10438b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 54i,12n,117p,10429b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 03_Feature_Target_Engineering.pdf (15 pages).
+Output written on 03_Linear-Regression.pdf (17 pages).
