@@ -500,8 +500,8 @@ This question should be answered using the "Carseats" data set.
 (a) Fit a multiple regression model to predict "Sales" using "Price", "Urban" and "US
 
 ```{r}
-data(Carseats)
-summary(fit3 <- lm(Sales ~ Price + Urban + US, data = Carseats))
+carseats <- as.data.table(ISLR::Carseats)
+summary(fit3 <- lm(Sales ~ Price + Urban + US, data = carseats))
 ```
 
 (b) Provide an interpretation of each coefficient in the model. Be careful - some of the variables in the model are qualitative !
@@ -521,7 +521,7 @@ with $Urban = 1$ if the store is in an urban location and $0$ if not, and $US = 
 (e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome.
 
 ```{r}
-fit4 <- lm(Sales ~ Price + US, data = Carseats)
+fit4 <- lm(Sales ~ Price + US, data = carseats)
 summary(fit4)
 ```
 
@@ -537,7 +537,7 @@ confint(fit4)
 
 (h) Is there evidence of outliers or high leverage observations in the model from (e) ?
 
-```{r}
+```{r, fig.height=5}
 par(mfrow = c(2, 2))
 plot(fit4)
 ```
