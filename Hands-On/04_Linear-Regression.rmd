@@ -48,11 +48,14 @@ fig_height: 3.5
 
 
 ```{r knitr_setup, include = FALSE}
+knitr::opts_chunk$set(
+   echo = T, 
+   eval = TRUE, 
+   dev = 'png', 
+   fig.width = 9, 
+   fig.height = 3.5)
 
-# DO NOT ADD OR REVISE CODE HERE
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, dev = 'png', fig.width = 9, fig.height = 3.5)
 options(knitr.table.format = "latex")
-
 ```
 
 ```{r report_setup, message = FALSE, warning = FALSE, include = FALSE}
@@ -65,6 +68,7 @@ library(stringr, quietly = TRUE, warn.conflicts = FALSE)
 library(lubridate, quietly = TRUE, warn.conflicts = FALSE)
 library(reshape2, quietly = TRUE, warn.conflicts = FALSE)
 library(ggrepel, quietly = TRUE, warn.conflicts = FALSE)
+library(tidyr, quietly = TRUE, warn.conflicts = FALSE)
 
 # Plotting / Graphics
 
@@ -76,6 +80,7 @@ library(grid, quietly = TRUE, warn.conflicts = FALSE)
 library(gridExtra, quietly = TRUE, warn.conflicts = FALSE)
 library(png, quietly = TRUE, warn.conflicts = FALSE)
 library(extrafont, quietly = TRUE, warn.conflicts = FALSE)
+library(pdp, quietly = TRUE, warn.conflicts = FALSE)
 
 # Formatting / Markdown
 
@@ -98,6 +103,9 @@ library(caret, quietly = TRUE, warn.conflicts = FALSE)
 library(h2o, quietly = TRUE, warn.conflicts = FALSE)
 library(forecast, quietly = TRUE, warn.conflicts = FALSE)
 library(vip, quietly = TRUE, warn.conflicts = FALSE)
+
+# Additional Data
+library(AppliedPredictiveModeling, quietly = TRUE, warn.conflicts = FALSE)
 
 # h2o Setup
 
@@ -419,4 +427,183 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 Model 1 has a distict pattern to the residuals (due to being ordered by neighborhood, which is unaccounted for in the model)
 
 #### 4.) More observations than predictors
+
+The number of features cannot exceed the number of observations.
+
+(not a problem in this example)
+
+#### 5.)
+
+No or little multicollinearity.
+
+Collinearity refers to the situation where two or more predictor variables are closely related to one another.
+
+```{r}
+cor(ames_train$Garage_Area, ames_train$Garage_Cars)
+```
+
+Example: _Garage_Area_ and _Garage_Cars_ are highly correlated.
+
+```{r}
+summary(cv_model3) %>%
+   broom::tidy() %>%
+   filter(term %in% c("Garage_Area", "Garage_Cars"))
+```
+
+Only _Garage_Area_ is significant (p < 0.05),
+
+However, refit w/o _Garage_Area_ term, 
+```{r}
+# model without Garage Area
+set.seed(123)
+
+mod_wo_Garage_Cars <- train(
+   Sale_Price ~ .,
+   data = select(ames_train, -Garage_Area),
+   method = "lm",
+   trControl = trainControl(method = "cv", number = 10)
+)
+
+summary(mod_wo_Garage_Cars) %>%
+   broom::tidy() %>%
+   filter(term == "Garage_Cars")
+```
+
+_Garage_Cars_ becomes significant ( p < 0.001 )
+
+Best to check VIF scores (variance inflation factor)
+
+### Principal Component Analysis
+
+PCA -> Linear factorization of features
+
+PCR -> Principal Component Regression
+
+```{r}
+# performs 10-fold cross validation on a PCR model tuning the
+# number of principal components to use as predictors from 1-20
+
+set.seed(123)
+
+cv_model_pcr <- train(
+   Sale_Price ~ .,
+   data = ames_train,
+   method = "pcr",
+   trControl = trainControl(method = "cv", number = 10),
+   preProcess = c("zv", "center", "scale"),
+   tuneLength = 20
+)
+
+cv_model_pcr$bestTune
+
+ggplot(cv_model_pcr)
+
+summary(cv_model_pcr)
+```
+
+### Partial least squares
+
+PLS can be viewed as a supervised dimension reduction procedure.
+
+Below is a comparision between PCR and PLS:
+
+```{r}
+data(solubility)
+
+df <- cbind(solTrainX, solTrainY)
+
+pca_df <- recipe(solTrainY ~ ., data = df) %>%
+   step_center(all_predictors()) %>%
+   step_scale(all_predictors()) %>%
+   step_pca(all_predictors()) %>%
+   prep(training = df, retain = T) %>%
+   juice() %>%
+   select(PC1, PC2, solTrainY) %>%
+   rename(`PCR Component 1` = "PC1", `PCR Component 2` = "PC2") %>%
+   gather(component, value, -solTrainY)
+
+pls_df <- recipe(solTrainY ~., data = df) %>%
+   step_center(all_predictors()) %>%
+   step_scale(all_predictors()) %>%
+   step_pls(all_predictors(), outcome = "solTrainY") %>%
+   prep(training = df, retain = T) %>%
+   juice() %>%
+   rename(`PLS Component 1` = "PLS1", `PLS Component 2` = "PLS2") %>%
+   gather(component, value, -solTrainY)
+   
+pca_df %>%
+   bind_rows(pls_df) %>%
+   ggplot(aes(value, solTrainY)) +
+   geom_point(alpha = .15) +
+   geom_smooth(method = "lm", se = F, lty = "dashed") +
+   facet_wrap(~ component, scales = "free") +
+   labs(x = "PC Eigenvalues", y = "Response")
+```
+
+Fit PLS to ames:
+
+```{r}
+
+# perform 10-fold cross validation on a PLS model tuning the
+# number of principal compoents to use as predictors from 1-20
+
+set.seed(123)
+
+cv_model_pls <- train(
+   Sale_Price ~ .,
+   data = ames_train,
+   method = "pls",
+   trControl = trainControl(method = "cv", number = 10),
+   preProcess = c("zv", "center", "scale"),
+   tuneLength = 20
+)
+
+# model with lowest RMSE
+
+cv_model_pls$bestTune
+
+ggplot(cv_model_pls)
+
+```
+
+### Feature interpretation
+
+Linear models are monotonic, meaning 1 unit change in X means a constant change in Y.
+
+In PLS we can measure the importance of features by an absolute weighted sum of the regression coefficents.
+
+We can use vip  to extract and plot the most important variables:
+
+```{r}
+vip(cv_model_pls, num_features = 20, method = "model")
+```
+
+Alternatively, we can use PDP (partial dependence plots) to summarize the relationship.
+
+```{r}
+p1 <- pdp::partial(cv_model_pls, pred.var = "Gr_Liv_Area", grid.resolution = 20) %>% 
+  autoplot() +
+  scale_y_continuous(limits = c(0, 300000), labels = scales::dollar)
+
+p2 <- pdp::partial(cv_model_pls, pred.var = "First_Flr_SF", grid.resolution = 20) %>% 
+  autoplot() +
+  scale_y_continuous(limits = c(0, 300000), labels = scales::dollar)
+
+p3 <- pdp::partial(cv_model_pls, pred.var = "Total_Bsmt_SF", grid.resolution = 20) %>% 
+  autoplot() +
+  scale_y_continuous(limits = c(0, 300000), labels = scales::dollar)
+
+p4 <- pdp::partial(cv_model_pls, pred.var = "Garage_Cars", grid.resolution = 4) %>% 
+  autoplot() +
+  scale_y_continuous(limits = c(0, 300000), labels = scales::dollar)
+
+grid.arrange(p1, p2, p3, p4, nrow = 2)
+```
+
+We see all 4 of the top predictive features have a positive linear relationship.
+
+```{r}
+# clean up
+rm(list = ls())
+```
 
