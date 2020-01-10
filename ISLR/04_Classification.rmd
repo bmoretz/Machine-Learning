@@ -124,7 +124,7 @@ data.dir <- paste0(here::here(), "/datasets/")
 select <- dplyr::select
 ```
 
-## Chapter 3
+## Chapter 4
 
 ```{r pander_setup, include = FALSE}
 
