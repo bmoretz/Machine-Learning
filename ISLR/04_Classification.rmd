@@ -49,8 +49,13 @@ editor_options:
 
 ```{r knitr_setup, include = FALSE}
 
-# DO NOT ADD OR REVISE CODE HERE
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, dev = 'png')
+knitr::opts_chunk$set(
+   echo = T, 
+   eval = TRUE, 
+   dev = 'png', 
+   fig.width = 9, 
+   fig.height = 3.5)
+
 options(knitr.table.format = "latex")
 
 ```
@@ -95,6 +100,7 @@ library(MASS, quietly = TRUE, warn.conflicts = FALSE)
 library(ISLR, quietly = TRUE, warn.conflicts = FALSE)
 library(rsample, quietly = TRUE, warn.conflicts = FALSE)
 library(caret, quietly = TRUE, warn.conflicts = FALSE)
+library(class, quietly = TRUE, warn.conflicts = FALSE)
 
 options(tinytex.verbose = TRUE)
 suppressMessages(library("tidyverse"))
@@ -138,11 +144,368 @@ panderOptions('keep.trailing.zeros', TRUE)
 
 ```
 
+### Book Work
+
+#### Simple Logistic Regression
+
+```{r}
+data.default <- data.table(ISLR::Default)[, dflt := ifelse(default == "Yes", 1, 0)]
+
+summary(model1 <- glm(dflt ~ balance, data = data.default, family = "binomial"))
+
+predict(model1, newdata = data.frame( balance = c(1000, 2000) ), type = "response")
+
+data.default[, is_student := ifelse(student == "Yes", 1, 0)]
+
+summary(model2 <- glm(dflt ~ is_student, data = data.default, family = "binomial"))
+
+predict(model2, newdata = data.frame( is_student = c(1, 0) ), type = "response")
+```
+
+#### Multiple Logistic Regression
+
+```{r}
+summary(model3 <- glm(dflt ~ balance + is_student, data = data.default, family = "binomial"))
+
+p1 <- ggplot(data.default, aes(balance, dflt, color = student)) +
+   stat_ecdf() +
+   geom_rug(aes(balance, dflt)) +
+   labs(x = "Balance", y = "Default Rate", title = "Default Rate by Student/Balance")
+
+p2 <- ggplot(data.default, aes(student, balance, fill = student)) +
+   geom_boxplot()
+
+grid.arrange(p1, p2, nrow = 1)
+
+predict(model3, newdata = 
+           data.frame( balance = c(1500, 1500), 
+                       is_student = c(1, 0) ), 
+        type = "response")
+```
+
 ### R Lab
+
+```{r}
+Smarket <- as.data.table(ISLR::Smarket)
+
+names(Smarket)
+
+dim(Smarket)
+
+summary(Smarket)
+```
+
+Pairs
+```{r}
+ggpairs(Smarket) %>%
+   print(progress = F)
+```
+
+```{r}
+cor(Smarket %>% select(-Direction))
+```
+
+```{r, fig.height=5}
+ggplot(Smarket) +
+   geom_boxplot(aes(Year, Volume, group = Year))
+```
+
+### Logistic Regression
+
+```{r}
+summary(glm.fits <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume,
+                 data = Smarket, family = binomial))
+
+coef(glm.fits)
+```
+
+Probabilites of going up (first 10 trading days)
+
+```{r}
+glm.probs <- predict(glm.fits, type = "response")
+head(glm.probs, 10)
+```
+
+```{r}
+contrasts(Smarket$Direction)
+```
+
+Predictions
+
+```{r}
+glm.pred <- rep("Down", nrow(Smarket))
+glm.pred[glm.probs > 0.5] <- "Up"
+```
+
+```{r}
+table(glm.pred, Smarket$Direction)
+
+mean(glm.pred == Smarket$Direction)
+```
+
+#### Validation
+
+Get the holdout set.
+
+```{r}
+train <- (Smarket$Year < 2005)
+Smarket.2005 <- Smarket[!train]
+dim(Smarket.2005)
+
+Direction.2005 <- Smarket$Direction[!train]
+```
+
+Train the logistic regression model.
+
+```{r}
+glm.fits <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume,
+                data = Smarket, family = binomial, subset = train)
+
+glm.probs <- predict(glm.fits, Smarket.2005, type = "response")
+```
+
+Test
+
+```{r}
+glm.pred <- rep("Down", 252)
+glm.pred[glm.probs > 0.5] <- "Up"
+
+table(glm.pred, Direction.2005)
+
+mean(glm.pred == Direction.2005)
+```
+
+Model 2
+
+```{r}
+summary(glm.fits <- glm(Direction ~ Lag1 + Lag2, data = Smarket, family = binomial, subset = train))
+
+glm.probs <- predict(glm.fits, Smarket.2005, type = "response")
+glm.pred <- rep("Down", nrow(Smarket.2005))
+
+glm.pred[glm.probs >= 0.5] <- "Up"
+
+table(glm.pred, Direction.2005)
+
+mean(glm.pred == Direction.2005)
+```
+
+
+```{r}
+predict(glm.fits, newdata = data.table(Lag1 = c(1.2, 1.5),
+                                       Lag2 = c(1.1, -0.8)), 
+        type = "response")
+```
+
+
+#### Linear Discriminant Analysis
+
+*LDA* is from **MASS** package.
+
+```{r}
+summary(lda.fit <- lda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train))
+
+lda.fit
+```
+
+```{r}
+lda.pred <- predict(lda.fit, Smarket.2005)
+
+names(lda.pred)
+```
+
+Predictions:
+
+```{r}
+lda.class <- lda.pred$class
+table(lda.class, Direction.2005)
+```
+
+Note: almost identical to logistic regression.
+
+```{r}
+mean(lda.class == Direction.2005)
+```
+
+```{r}
+sum(lda.pred$posterior[, 1] >= 0.5)
+sum(lda.pred$posterior[, 1] < 0.5)
+```
+
+The posterior probabilites output by the model corresponds to the probability that the market will decrease.
+
+```{r}
+lda.pred$posterior[1:20, 1]
+lda.class[1:20]
+```
+
+Apply a threshold of 90% to predictions:
+
+```{r}
+sum(lda.pred$posterior[, 1] > .9)
+```
+
+#### Quadratic Discriminant Analysis
+
+```{r}
+summary(qda.fit <- qda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train))
+
+qda.fit
+```
+
+Predictions
+
+```{r}
+qda.class <- predict(qda.fit, Smarket.2005)$class
+table(qda.class, Direction.2005)
+
+mean(qda.class == Direction.2005)
+```
+
+#### K-Nearest Neighbors
+
+Data Setup
+
+```{r}
+train.X <- with(Smarket, cbind(Lag1, Lag2))[train, ]
+test.X <- with(Smarket, cbind(Lag1, Lag2))[!train, ]
+train.Direction <- Smarket$Direction[train]
+```
+
+KNN
+
+```{r}
+set.seed(1)
+
+knn.pred <- knn(train.X, test.X, train.Direction, k = 1)
+table(knn.pred, Direction.2005)
+```
+
+```{r}
+set.seed(1)
+
+knn.pred <- knn(train.X, test.X, train.Direction, k = 3)
+table(knn.pred, Direction.2005)
+```
+
+#### Caravan Insurance Data
+
+```{r}
+caravan <- Caravan
+
+dim(caravan)
+
+summary(caravan$Purchase)
+
+table(caravan$Purchase) %>% prop.table()
+```
+
+```{r}
+standardized.X <- scale(caravan[, -86])
+
+var(caravan[, 1])
+var(caravan[, 2])
+
+var(standardized.X[, 1])
+var(standardized.X[, 2])
+```
+
++ K=1
+```{r}
+test <- 1:1000
+train.X <- standardized.X[-test,]
+test.X <- standardized.X[test,]
+
+train.Y <- caravan$Purchase[-test]
+test.Y <- caravan$Purchase[test]
+
+set.seed(1)
+
+knn.pred <- knn(train.X, test.X, train.Y, k = 1)
+mean(test.Y != knn.pred)
+mean(test.Y != "No")
+
+result <- table(knn.pred, test.Y)
+result
+
+result %>% prop.table()
+```
+
++ K=3
+
+```{r}
+set.seed(1)
+
+knn.pred <- knn(train.X, test.X, train.Y, k = 3)
+mean(test.Y != knn.pred)
+mean(test.Y != "No")
+
+result <- table(knn.pred, test.Y)
+result
+
+result %>% prop.table()
+```
+
++ K=5
+
+```{r}
+set.seed(1)
+
+knn.pred <- knn(train.X, test.X, train.Y, k = 5)
+mean(test.Y != knn.pred)
+mean(test.Y != "No")
+
+result <- table(knn.pred, test.Y)
+result
+
+result %>% prop.table()
+```
+
+Logistic Regression Alternative
+
+```{r}
+glm.fits <- glm(Purchase ~ ., data = caravan, family = binomial,
+                subset = -test)
+glm.probs <- predict(glm.fits, caravan[test,], type = "response")
+
+# .5 cut-off
+glm.pred <- rep("No", 1000)
+glm.pred[glm.probs > .5] <- "Yes"
+
+results <- table(glm.pred, test.Y)
+results %>% prop.table()
+
+# .25 cut-off
+glm.pred <- rep("No", 1000)
+glm.pred[glm.probs > .25] <- "Yes"
+
+results <- table(glm.pred, test.Y)
+results %>% prop.table()
+```
+
+```{r}
+
+# Quiz
+
+bal <- 1936.75
+
+exp(-10.6513 + 0.0055 * bal) / ( 1 + exp(-10.6513 + 0.0055*bal))
+
+b0 <- -6; b1 <- 0.05; b2 <- 1
+x1 <- 50; x2 <- 3.5
+exp(b0 + b1 * x1 + b2 * x2) / ( 1 + exp(b0 + b1 * x1 + b2 * x2))
+
+```
 
 ### Conceptual
 
-#### 1.)
+#### 1.) Using a little bit of algebra, prove that (4.2) is equivalent to (4.3). In other words, the logistic function representaion and logit representation for the logistic regression models are equivalent
+
+
+#### 2.) It was stated in the text that classifying an observation to the class for which (4.13) is largest. Prove that this is the case. In other words, under the assumption that the observations in the *k*th class are drawn from a $N$ (\mu, \sigma^2) distribution, the Bayes' clssifier assigns an observation to the class for which the discriminant function is maximized.
+
+#### 3.) This problem relates to the QDA model, in which the observations within each class are drawn from a normal distribution with a class-specific mean vector and a class specific covariance matrix. We consider the simple case where p=1; i.e. there is only one feature.
+Suppose that we have K classes, and if an observation belongs to the kth class then X comes from a one-dimensional normal distribution, $X \sim N(\mu k, \sigma2k)$. Recall that the density function for the one-dimensional normal distribution is given in (4.11). Prove that in this case, the Bayes’ classifier is not linear. Argue that it is in fact quadratic.
 
 ### Applied
 
