@@ -34,7 +34,7 @@ header-includes:
    \fancyhead[L]{\color{headergrey}Moretz, Brandon}
    \fancyhead[C]{\Large\bfseries\color{headergrey}Statistical Learning}
    \rfoot{\color{headergrey}\thepage}
-   \lfoot{\color{headergrey}Chapter 3}
+   \lfoot{\color{headergrey}Chapter 4}
    \fancyfoot[C]{\rmfamily\color{headergrey}Linear Regression}
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -499,14 +499,330 @@ exp(b0 + b1 * x1 + b2 * x2) / ( 1 + exp(b0 + b1 * x1 + b2 * x2))
 
 ### Conceptual
 
-#### 1.) Using a little bit of algebra, prove that (4.2) is equivalent to (4.3). In other words, the logistic function representaion and logit representation for the logistic regression models are equivalent
+#### 1.) 
 
+Using a little bit of algebra, prove that (4.2) is equivalent to (4.3). In other words, the logistic function representaion and logit representation for the logistic regression models are equivalent.
 
-#### 2.) It was stated in the text that classifying an observation to the class for which (4.13) is largest. Prove that this is the case. In other words, under the assumption that the observations in the *k*th class are drawn from a $N$ (\mu, \sigma^2) distribution, the Bayes' clssifier assigns an observation to the class for which the discriminant function is maximized.
+4.2) $p(x) = \frac{e^{(\beta_0 + \beta_1X)}}{1 + e^{\beta_0 + \beta_1X}}$
 
-#### 3.) This problem relates to the QDA model, in which the observations within each class are drawn from a normal distribution with a class-specific mean vector and a class specific covariance matrix. We consider the simple case where p=1; i.e. there is only one feature.
-Suppose that we have K classes, and if an observation belongs to the kth class then X comes from a one-dimensional normal distribution, $X \sim N(\mu k, \sigma2k)$. Recall that the density function for the one-dimensional normal distribution is given in (4.11). Prove that in this case, the Bayes’ classifier is not linear. Argue that it is in fact quadratic.
+4.3) $\frac{p(x)}{1 - p(x)} = e^{\beta_0 + \beta_1X}$
+
+**Solution**
+
+$1 - p(x) = 1 - \frac{e^{(\beta_0 + \beta_1X)}}{1 + e^{\beta_0 + \beta_1X}} = \frac{1}{1 + e^{\beta_0 + \beta_1X}}$
+
+$\frac{1}{1 - p(x)} = 1 + e^{\beta_0 + \beta_1X}$
+
+#### 2.)
+
+It was stated in the text that classifying an observation to the class for which (4.13) is largest. Prove that this is the case. In other words, under the assumption that the observations in the *k*th class are drawn from a $N \sim (\mu, \sigma^2)$ distribution, the Bayes' clssifier assigns an observation to the class for which the discriminant function is maximized.
+
+4.12:
+
+$p_k(x) = \frac{\pi_k\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x - \mu_k)^2}}{\sum^K_{l=1}{\pi_le^{-\frac{1}{2\sigma^2}(x - \mu_k)^2}}}$
+
+**Solution**
+
+$f''_x = ln\pi_k + ln(\frac{1}{\sqrt{2\pi\sigma}}) + ln \ e^{- \frac{1}{2\sigma^2}(x - \mu_k)^2}$
+
+$f'''_x = ln \ \pi_k - \frac{1}{2\sigma^2}(x - \mu_k)^2$
+
+$f'''_x = ln \ \pi_k + \frac{x\mu_k}{\sigma^2} - \frac{\mu^2_k}{2\sigma^2}$
+
+$\delta_k(x) = \frac{\mu_k}{\sigma^2}x - \frac{\mu^2_k}{2\sigma^2} + log(\pi_k)$
+
+#### 3.) 
+
+This problem relates to the QDA model, in which the observations within each class are drawn from a normal distribution with a class-specific mean vector and a class specific covariance matrix. We consider the simple case where p=1; i.e. there is only one feature.
+Suppose that we have K classes, and if an observation belongs to the kth class then X comes from a one-dimensional normal distribution, $X \sim N(\mu_k, \sigma^2_k)$. Recall that the density function for the one-dimensional normal distribution is given in (4.11). Prove that in this case, the Bayes’ classifier is not linear. Argue that it is in fact quadratic.
+
+**Solution**
+
+From the previous answer, we can expand the last term which is not linear in x.
+
+#### 4.)
+
+When the number of features p is large, there tends to be a deterioration in the performance of KNN and other local approaches that perform prediction using only observations that are near the test observation for which a prediction must be made. This phenomenon is known as the curse of dimensionality, and it ties into the fact that non-parametric approaches often perform poorly when p is large. We will now investigate this curse.
+
+a.) Suppose that we have a set of observations, each with measurements on p=1 feature, X. We assume that X is uniformly (evenly) distributed on [0,1]. Associated with each observation is a response value. Suppose that we wish to predict a test observation’s response using only observations that are within 10% of the range of X closest to that test observation. For instance, in order to predict the response for a test observation with X=0.6, we will use observations in the range [0.55,0.65]. On average, what fraction of the available observations will we use to make the prediction ?
 
 ### Applied
 
-#### 8.)
+#### 10.)
+
+This question should be answered using the “Weekly” data set, which is part of the “ISLR” package. This data is similar in nature to the “Smarket” data from this chapter’s lab, except that it contains 1089 weekly returns for 21 years, from the beginning of 1990 to the end of 2010.
+
+```{r}
+weekly <- as.data.table(ISLR::Weekly)
+
+head(weekly)
+```
+
+a.) Produce some numerical and graphical summaries of the “Weekly” data. Do there appear to be any patterns ?
+
+```{r}
+weekly %>% ggplot() +
+   geom_point(aes(Year, Lag1))
+
+p1 <- weekly %>% ggplot() +
+   geom_density(aes(Lag1, group = Year, fill = Year), alpha = .4)
+
+p2 <- weekly %>% ggplot() +
+   geom_density(aes(Lag2, group = Year, fill = Year), alpha = .4)
+
+p3 <- weekly %>% ggplot() +
+   geom_density(aes(Lag3, group = Year, fill = Year), alpha = .4)
+
+p4 <- weekly %>% ggplot() +
+   geom_density(aes(Lag4, group = Year, fill = Year), alpha = .4)
+
+grid.arrange(p1, p2, p3, p4, nrow = 2)
+```
+
+```{r}
+cor <- cor(weekly %>% select(-Direction))
+cor
+
+ggcorr(cor)
+```
+
+b.) Use the full data set to perform a logistic regression with “Direction” as the response and the five lag variables plus “Volume” as predictors. Use the summary function to print the results. Do any of the predictors appear to be statistically significant ? If so, which ones ?
+
+```{r}
+summary(glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data = weekly, family = binomial))
+
+glm.fit
+```
+
+It appears only **Lag2** is statistically significant.
+
+c.) Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.
+
+```{r}
+glm.pred <- ifelse(predict(glm.fit, type = "response") > .5, "Up", "Down")
+
+table(glm.pred, weekly$Direction) %>% prop.table()
+```
+
+We may conclude that the percentage of correct predictions on the training data is (54+557)/1089 wich is equal to 56.1065197%. In other words 43.8934803% is the training error rate, which is often overly optimistic. We could also say that for weeks when the market goes up, the model is right 92.0661157% of the time (557/(48+557)). For weeks when the market goes down, the model is right only 11.1570248% of the time (54/(54+430)).
+
+d.) Now fit the logistic regression model using a training data period from 1990 to 2008, with “Lag2” as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is, the data from 2009 to 2010).
+
+```{r}
+train <- weekly[Year < 2009,]
+test <- weekly[Year > 2009, .(Direction, Lag2)]
+
+summary(glm.fit <- glm(Direction ~ Lag2, data = train, family = binomial))
+
+test$pred <- ifelse(predict(glm.fit, newdata = test[, .(Lag2)], type = "response") > .5, "Up", "Down")
+
+table(test$Direction, test$pred) %>% prop.table() * 100
+
+mean(test$Direction == test$pred)
+```
+
+e.) Repeat (d) using LDA.
+
+```{r}
+summary(lda.fit <- lda(Direction ~ Lag2, data = train))
+lda.fit
+
+test$pred <- predict(lda.fit, newdata = test[, .(Lag2)], type = "response")$class
+
+mean(test$Direction == test$pred)
+
+table(test$Direction, test$pred) %>% prop.table() * 100
+```
+
+f.) Repeat (d) using QDA.
+
+```{r}
+summary(qda.fit <- qda(Direction ~ Lag2, data = train))
+qda.fit
+
+lda.test <- test[, .(Direction, Lag2)]
+
+lda.pred <- predict(qda.fit, newdata = lda.test, type = "response")
+
+lda.test[, pred := lda.pred$class]
+
+with(lda.test, mean(Direction == pred))
+
+with(lda.test, table(Direction, pred)) %>% prop.table() * 100
+```
+
+g.) Repeat (d) using KNN with k = 1.
+
+```{r}
+train <- weekly[Year < 2009,]
+test <- weekly[Year > 2009, .(Direction, Lag2)]
+
+train.X <- train[, .(Lag2)]
+test.X <- test[, .(Lag2)]
+train.Direction <- train$Direction
+
+knn.pred <- knn(train.X, test.X, train.Direction, k = 1)
+
+table(test$Direction, knn.pred) %>% prop.table()
+
+mean(test$Direction == knn.pred)
+```
+
+h.) Which of these methods appear to provide the best results on this data?
+
+LDA and Logistic Regression appear to have the best performance on this particular set of data.
+
+#### 11.)
+
+In this problem, you will develop a model to predict whether a given car gets high or low gas mileage based on the *Auto* data set.
+
+```{r}
+auto <- as.data.table(ISLR::Auto)
+
+auto %>% glimpse()
+```
+
+a.) Create a binary variable, *mpg01*, that contains a 1 if mpg contains a value above its median. You can compute the median using the median() function. Note you may find it helpful to use the *data.frame()* function to create a single data set containing both *mpg01* and other Auto variables.
+
+```{r}
+cutpoint <- median(auto$mpg)
+
+auto[, mpg01 := mpg > cutpoint]
+
+```
+
+b.) Explore the data graphically in order to investigate the association between mpg01 and the other features. Which of the other features seem most likely to be useful in predicting mpg01? Scatterplots and boxplots may be useful tools to answer this question.
+
+```{r}
+summary(auto)
+
+ggpairs(auto %>% select(-name))
+
+ggplot(auto, aes(cylinders, mpg, fill = cylinders)) +
+   geom_boxplot(aes(group = cylinders)) +
+   geom_hline(yintercept = cutpoint, col = "darkred")
+
+ggplot(auto, aes(displacement, mpg)) +
+   geom_point(aes(color = cylinders)) +
+   geom_smooth(method = "auto") +
+   scale_y_continuous(trans = "log10")
+
+ggplot(auto, aes(horsepower, mpg)) +
+   geom_point(aes(color = mpg)) +
+   geom_smooth(method = "auto") +
+   scale_y_continuous(trans = "log10")
+
+```
+
+c.) Split the data in to training / test sets.
+
+```{r}
+auto[, prob := ifelse(mpg01 == T, 1, 0)]
+
+auto.split <- initial_split(auto, prop = 0.7, strata = "mpg01")
+
+auto.train <- training(auto.split)
+auto.test <- testing(auto.split)
+```
+
+d.) Perform Logistic Regression.
+
+```{r}
+
+auto.train %>% glimpse()
+
+glm.fit1 <- glm(mpg01 ~ cylinders, data = auto.train, family = binomial)
+glm.fit2 <- glm(mpg01 ~ horsepower, data = auto.train, family = binomial)
+
+auto.train1 <- broom::augment(glm.fit1, auto.train) %>% mutate(.fitted = exp(.fitted))
+auto.train2 <- broom::augment(glm.fit2, auto.train) %>% mutate(.fitted = exp(.fitted))
+
+auto.train1 %>% summary()
+auto.train2 %>% summary()
+
+p1 <- ggplot(auto.train1, aes(cylinders, prob)) +
+   geom_point(alpha = 0.15) +
+   geom_smooth(method = "glm", method.args = list(family = "binomial"))
+
+p2 <- ggplot(auto.train2, aes(horsepower, prob)) +
+   geom_point(alpha = 0.15) +
+   geom_smooth(method = "glm", method.args = list(family = "binomial"))
+
+gridExtra::grid.arrange(p1, p2, nrow = 2)
+```
+
+
+```{r}
+tidy(glm.fit1)
+tidy(glm.fit2)
+
+exp(coef(glm.fit1))
+exp(coef(glm.fit2))
+
+confint(glm.fit1)
+confint(glm.fit2)
+```
+
+Cross-validated Logistic Regression
+
+```{r}
+
+cols.exclude <- c("name", "mpg", "prob")
+
+auto.train3 <- auto.train[, -cols.exclude, with = F][, mpg01 := as.factor(mpg01)]
+
+cv.model.logit <- train(
+   mpg01 ~ .,
+   data = auto.train3,
+   method = "glm",
+   family = "binomial",
+   trControl = trainControl(method = "cv", number = 10)
+)
+
+auto.train3$pred <- predict(cv.model.logit, auto.train3)
+
+# in-sample performance
+table(auto.train3$mpg01, auto.train3$pred) %>% prop.table()
+
+# out of sample results
+auto.test$pred <- predict(cv.model.logit, newdata = auto.test, type = "raw")
+
+table(auto.test$mpg01, auto.test$pred) %>% prop.table() %>% round(digits = 3)
+```
+
+e.) Perform Linear Discriminant Analysis
+
+Cross-validated Linear Discriminant Analysis
+
+```{r}
+
+auto.train.lda <- auto.train[, -cols.exclude, with = F][, mpg01 := as.factor(mpg01)]
+
+summary(lda.fit1 <- lda(mpg01 ~ ., data = auto.train.lda))
+
+cv.model.lda <- train(
+   mpg01 ~ .,
+   auto.train.lda,
+   method = "lda",
+   family = "binomial",
+   trControl = trainControl(method = "cv", number = 10)
+)
+
+# in-sample performance
+auto.train.lda$pred <- predict(cv.model.lda)
+
+with(auto.train.lda, mean(mpg01 == pred))
+
+with(auto.train.lda, table(mpg01, pred)) %>% prop.table()
+
+# out of sample performance
+
+auto.test.lda <- auto.test
+auto.test.lda$pred <- predict(cv.model.lda, newdata = auto.test.lda)
+
+with(auto.test.lda, mean(mpg01 == pred))
+
+with(auto.test.lda, table(mpg01, pred)) %>% prop.table()
+
+```
+
