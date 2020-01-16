@@ -769,6 +769,8 @@ Cross-validated Logistic Regression
 
 cols.exclude <- c("name", "mpg", "prob")
 
+summary(glm.fit3 <- glm(mpg01 ~ ., data = auto.train3, family = binomial))
+
 auto.train3 <- auto.train[, -cols.exclude, with = F][, mpg01 := as.factor(mpg01)]
 
 cv.model.logit <- train(
@@ -788,6 +790,13 @@ table(auto.train3$mpg01, auto.train3$pred) %>% prop.table()
 auto.test$pred <- predict(cv.model.logit, newdata = auto.test, type = "raw")
 
 table(auto.test$mpg01, auto.test$pred) %>% prop.table() %>% round(digits = 3)
+```
+
+```{r}
+ggplot(auto.train, aes(weight, prob, color = year)) +
+   geom_point(alpha = 0.25) +
+   geom_smooth(method = "glm", method.args = list(family = "binomial")) +
+   scale_x_continuous(labels = scales::comma)
 ```
 
 e.) Perform Linear Discriminant Analysis
@@ -823,6 +832,57 @@ auto.test.lda$pred <- predict(cv.model.lda, newdata = auto.test.lda)
 with(auto.test.lda, mean(mpg01 == pred))
 
 with(auto.test.lda, table(mpg01, pred)) %>% prop.table()
+```
 
+Cross-validated KNN
+
+```{r}
+
+auto.train.X <- auto.train[, .(mpg01, weight, year)][, mpg01 := as.factor(mpg01)]
+auto.test.X <- auto.test[, .(mpg01, weight, year)]
+
+knn.fit <- train(
+   mpg01 ~ weight + year,
+   data = auto.train.X,
+   method = "knn",
+   trControl = trainControl(method = "cv", number = 10),
+   tuneLength = 20
+)
+
+summary(knn.fit)
+
+auto.knn <- auto.train
+# in-sample performance
+auto.knn$pred <- predict(knn.fit)
+
+with(auto.knn, mean(mpg01 == pred))
+with(auto.knn, table(mpg01, pred)) %>% prop.table()
+
+# out of sample performance
+auto.test.knn <- auto.test
+
+auto.test.knn$pred <- predict(knn.fit, newdata = auto.test.knn)
+
+with(auto.test.knn, mean(mpg01 == pred))
+with(auto.test.knn, table(mpg01, pred)) %>% prop.table()
+
+```
+
+#### 12.)
+
+a.) Write a function, Power(), that prints out the result of rasing 2 to the 3rd power. In other words, your function should compute 2^3.
+
+```{r}
+Power <- function(x) {
+   print(2^3)
+}
+Power()
+```
+
+b.) Create a new function, Power2, that allows you to pass any two numbers, x and a, and prints out the value of x^a.
+
+```{r}
+Power2 <- function(a, x) paste(a, "to the", x, "is", a ^ x)
+Power2(3, 8)
 ```
 
