@@ -886,3 +886,8 @@ Power2 <- function(a, x) paste(a, "to the", x, "is", a ^ x)
 Power2(3, 8)
 ```
 
+clean-up workspace
+```{r}
+rm(list = ls())
+```
+

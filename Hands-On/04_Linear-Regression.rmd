@@ -32,7 +32,7 @@ header-includes:
    \fancyhead[L]{\color{headergrey}Moretz, Brandon}
    \fancyhead[C]{\Large\bfseries\color{headergrey}Linear Regression}
    \rfoot{\color{headergrey}\thepage}
-   \lfoot{\color{headergrey}Chapter 3}
+   \lfoot{\color{headergrey}Chapter 4}
    \fancyfoot[C]{\rmfamily\color{headergrey}Hands-On Machine Learning}
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
