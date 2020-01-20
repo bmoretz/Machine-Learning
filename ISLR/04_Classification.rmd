@@ -35,7 +35,7 @@ header-includes:
    \fancyhead[C]{\Large\bfseries\color{headergrey}Statistical Learning}
    \rfoot{\color{headergrey}\thepage}
    \lfoot{\color{headergrey}Chapter 4}
-   \fancyfoot[C]{\rmfamily\color{headergrey}Linear Regression}
+   \fancyfoot[C]{\rmfamily\color{headergrey}Classification}
 geometry: left = 1cm, right = 1cm, top = 2cm, bottom = 3cm
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -768,6 +768,7 @@ Cross-validated Logistic Regression
 ```{r}
 
 cols.exclude <- c("name", "mpg", "prob")
+auto.train3 <- auto.train[, -cols.exclude, with = F]
 
 summary(glm.fit3 <- glm(mpg01 ~ ., data = auto.train3, family = binomial))
 
