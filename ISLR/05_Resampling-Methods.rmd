@@ -101,6 +101,7 @@ library(ISLR, quietly = TRUE, warn.conflicts = FALSE)
 library(rsample, quietly = TRUE, warn.conflicts = FALSE)
 library(caret, quietly = TRUE, warn.conflicts = FALSE)
 library(class, quietly = TRUE, warn.conflicts = FALSE)
+library(boot, quietly = TRUE, warn.conflicts = FALSE)
 
 options(tinytex.verbose = TRUE)
 suppressMessages(library("tidyverse"))
@@ -271,4 +272,121 @@ $CV_{(n)} = \frac{1}{n}\sum^{n}_{i=1}Err_i$
 Bootstrapping is the process of resampling a data set (with replacement) to obtain confidence intervals (SE) for unknown population parameters.
 
 ### R lab
+
+#### The Validation Set Approach
+
+```{r}
+set.seed(1)
+
+train <- sample(392, 196)
+
+lm.fit <- lm(mpg ~ horsepower, data = auto, subset = train)
+
+mean(lm.fit$residuals^2) # train MSE
+
+test <- auto[!train]
+test$pred <- predict(lm.fit, newdata = test)
+with(test, mean((mpg - pred)^2)) # test MSE
+
+lm.fit2 <- lm(mpg ~ poly(horsepower, 2), data = auto, subset = train)
+test$pred <- predict(lm.fit2, newdata = test) # update predictions
+with(test, mean((mpg - pred)^2)) # model 2 MSE
+
+lm.fit3 <- lm(mpg ~ poly(horsepower, 3), data = auto, subset = train)
+test$pred <- predict(lm.fit3, newdata = test) # update predictions
+with(test, mean((mpg - pred)^2)) # model 2 MSE
+
+```
+
+#### Leave-One-Out CV
+
+```{r}
+glm.fit <- glm(mpg ~ horsepower, data = auto)
+coef(glm.fit)
+
+glm.fit <- glm(mpg ~ horsepower, data = auto)
+cv.err <- cv.glm(auto, glm.fit)
+
+cv.err$delta
+
+cv.error <- rep(0, 5)
+for( i in 1:5 )
+{
+   glm.fit <- glm(mpg ~ poly(horsepower, i), data = auto)
+   cv.error[i] <- cv.glm(auto, glm.fit)$delta[1]
+}
+
+cv.error
+```
+
+#### k-Fold Cross-Validation
+
+```{r}
+set.seed(7)
+
+cv.error.10 <- rep(0, 10)
+for( i in 1:10 )
+{
+   glm.fit <- glm(mpg ~ poly(horsepower, i), data = auto)
+   cv.error.10[i] <- cv.glm(auto, glm.fit)$delta[1]
+}
+
+cv.error.10
+```
+
+#### The Bootstrap
+
+```{r}
+portfolio <- data.table(ISLR::Portfolio)
+
+alpha.fn <- function(data, index ) {
+   X <- data$X; Y <- data$Y
+   return ((var(Y)-cov(X, Y)) / (var(X) + var(Y) - 2*cov(X, Y)))
+}
+
+alpha.fn(portfolio, 1:100)
+```
+
+```{r}
+set.seed(1)
+
+alpha.fn(portfolio, sample(100, 100, replace = T))
+
+boot(data = portfolio, statistic = alpha.fn, R = 1000)
+```
+
+#### Estimating the Accuracy of a Linear Regression Model
+
+```{r}
+boot.fn <- function(data, index) {
+   return (coef(lm(mpg ~ horsepower, data = data, subset = index)))
+}
+
+boot.fn(auto, 1:396)
+```
+
+```{r}
+set.seed(1)
+
+boot.fn(auto, sample(392, 392, replace = T))
+```
+
+```{r}
+boot(auto, boot.fn, 1000)
+summary(lm(mpg ~ horsepower, data = auto))
+```
+
+```{r}
+boot.fn <- function(data, index){
+   coefficients(lm(mpg ~ horsepower + I(horsepower^2), data = data), subset = index)
+}
+
+set.seed(1)
+
+boot(data = auto, statistic = boot.fn, R = 1000)
+```
+
+### Exercises
+
+### 1.) Using the statistical properties of the variance as well as single variable calculus, derive 5.6. In other words, prove that $\alpha$ given by 5.6 does indeed minimize $Var(\alphaX + (1 - \alpha)Y$
 
