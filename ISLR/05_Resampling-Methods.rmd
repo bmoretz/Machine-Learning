@@ -812,7 +812,7 @@ d.) Based on your bootstrap estimate from (c), provide a 95% confidence interval
 ```{r}
 alpha <- .95
 
-t.boot$t0 + qnorm(c(1 - alpha, alpha)) * 0.411978
+t.boot$t0 + qnorm(c(1 - alpha/2, alpha/2)) * 0.411978
 ```
 
 Compare to the t-test:
