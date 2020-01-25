@@ -489,18 +489,35 @@ image(matrix(imp$imp, 28, 28), col = gray(seq(0, 1, 0.05)),
 ```
 
 ```{r}
+# Get a few accurate predictions
 set.seed(9)
+good <- knn_mnist$pred %>%
+  filter(pred == obs) %>%
+  sample_n(4)
 
-good <- knn.mnist$pred %>%
-   filter(pred == obs) %>%
-   sample_n(4)
-
+# Get a few inaccurate predictions
 set.seed(9)
-bad <- knn.mnist$pred %>%
-   filter(pred != obs) %>%
-   sample_n(4)
+bad <- knn_mnist$pred %>%
+  filter(pred != obs) %>%
+  sample_n(4)
 
 combine <- bind_rows(good, bad)
+
+# Get original feature set with all pixel features
+set.seed(123)
+index <- sample(nrow(mnist$train$images), 10000)
+X <- mnist$train$images[index,]
+
+# Plot results
+par(mfrow = c(4, 2), mar=c(1, 1, 1, 1))
+layout(matrix(seq_len(nrow(combine)), 4, 2, byrow = FALSE))
+for(i in seq_len(nrow(combine))) {
+  image(matrix(X[combine$rowIndex[i],], 28, 28)[, 28:1], 
+        col = gray(seq(0, 1, 0.05)),
+        main = paste("Actual:", combine$obs[i], "  ", 
+                     "Predicted:", combine$pred[i]),
+        xaxt="n", yaxt="n") 
+}
 ```
  
 ```{r}
