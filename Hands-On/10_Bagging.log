@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  26 JAN 2020 12:01
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.17)  28 JAN 2020 09:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**09_Decision-Trees.tex
-(./09_Decision-Trees.tex
+**10_Bagging.tex
+(./10_Bagging.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
@@ -1160,8 +1160,8 @@ LaTeX Font Info:    Font shape `TU/Arial(0)/bx/n' will be
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/tuenc.def
 File: tuenc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding TU on input line 82.
-))) (./09_Decision-Trees.aux)
-\openout1 = `09_Decision-Trees.aux'.
+))) (./10_Bagging.aux)
+\openout1 = `10_Bagging.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
 LaTeX Font Info:    ... okay on input line 143.
@@ -1469,9 +1469,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 143.
 LaTeX Info: Redefining \pageref on input line 143.
 LaTeX Info: Redefining \nameref on input line 143.
-(./09_Decision-Trees.out) (./09_Decision-Trees.out)
+(./10_Bagging.out) (./10_Bagging.out)
 \@outlinefile=\write4
-\openout4 = `09_Decision-Trees.out'.
+\openout4 = `10_Bagging.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1545,379 +1545,203 @@ Package xcolor Warning: Incompatible color definition on input line 178.
 Package xcolor Warning: Incompatible color definition on input line 178.
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.41483pt on input line 194.
+(Font)              scaled to size 8.41483pt on input line 198.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.97688pt on input line 194.
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 194.
+(Font)              scaled to size 5.97688pt on input line 198.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 198.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.00018pt on input line 194.
+(Font)              scaled to size 12.00018pt on input line 198.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.41495pt on input line 194.
+(Font)              scaled to size 8.41495pt on input line 198.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.97696pt on input line 194.
+(Font)              scaled to size 5.97696pt on input line 198.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99982pt on input line 194.
+(Font)              scaled to size 11.99982pt on input line 198.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.41469pt on input line 194.
+(Font)              scaled to size 8.41469pt on input line 198.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.97679pt on input line 194.
-LaTeX Font Info:    Try loading font information for U+msa on input line 194.
+(Font)              scaled to size 5.97679pt on input line 198.
+LaTeX Font Info:    Try loading font information for U+msa on input line 198.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 194.
+LaTeX Font Info:    Try loading font information for U+msb on input line 198.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-
-Package xcolor Warning: Incompatible color definition on input line 211.
-
-[1
+) [1
 
 ]
 
-Package xcolor Warning: Incompatible color definition on input line 228.
+Package xcolor Warning: Incompatible color definition on input line 214.
 
 
-Package xcolor Warning: Incompatible color definition on input line 228.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-3-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-3-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 234.
+Package xcolor Warning: Incompatible color definition on input line 301.
 
 
-Package xcolor Warning: Incompatible color definition on input line 250.
+Package xcolor Warning: Incompatible color definition on input line 301.
 
 
-Package xcolor Warning: Incompatible color definition on input line 250.
-
-
-Underfull \vbox (badness 2846) detected at line 250
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 250.
+Package xcolor Warning: Incompatible color definition on input line 301.
 
 [2]
 
-Package xcolor Warning: Incompatible color definition on input line 250.
+Package xcolor Warning: Incompatible color definition on input line 301.
 
 
-Package xcolor Warning: Incompatible color definition on input line 250.
+Package xcolor Warning: Incompatible color definition on input line 301.
 
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-4-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-4-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 256.
-
-
-Package xcolor Warning: Incompatible color definition on input line 263.
-
-
-Package xcolor Warning: Incompatible color definition on input line 263.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-5-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-5-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 269.
-
-
-Package xcolor Warning: Incompatible color definition on input line 279.
-
-
-Package xcolor Warning: Incompatible color definition on input line 279.
-
-
-Package xcolor Warning: Incompatible color definition on input line 279.
-
+File: 10_Bagging_files/figure-latex/unnamed-chunk-3-1.png Graphic file (type bm
+p)
+<10_Bagging_files/figure-latex/unnamed-chunk-3-1.png>
 [3]
 
-Package xcolor Warning: Incompatible color definition on input line 279.
+Package xcolor Warning: Incompatible color definition on input line 321.
 
 
-Package xcolor Warning: Incompatible color definition on input line 279.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-6-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-6-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 285.
+Package xcolor Warning: Incompatible color definition on input line 336.
 
 
-Package xcolor Warning: Incompatible color definition on input line 291.
+Package xcolor Warning: Incompatible color definition on input line 336.
 
 
-Package xcolor Warning: Incompatible color definition on input line 291.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-7-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-7-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 295.
+Overfull \vbox (0.37428pt too high) detected at line 336
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 311.
-
-
-Package xcolor Warning: Incompatible color definition on input line 311.
-
-
-Package xcolor Warning: Incompatible color definition on input line 311.
+Package xcolor Warning: Incompatible color definition on input line 336.
 
 [4]
 
-Package xcolor Warning: Incompatible color definition on input line 311.
+Package xcolor Warning: Incompatible color definition on input line 336.
 
 
-Package xcolor Warning: Incompatible color definition on input line 311.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-8-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-8-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 327.
+Package xcolor Warning: Incompatible color definition on input line 336.
 
 
-Package xcolor Warning: Incompatible color definition on input line 333.
+Package xcolor Warning: Incompatible color definition on input line 351.
 
 
-Package xcolor Warning: Incompatible color definition on input line 333.
+Package xcolor Warning: Incompatible color definition on input line 384.
 
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-9-1.png Graphic file (
-type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-9-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 337.
+Package xcolor Warning: Incompatible color definition on input line 384.
+
+
+Underfull \vbox (badness 2903) detected at line 384
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 384.
 
 [5]
 
-Package xcolor Warning: Incompatible color definition on input line 346.
+Package xcolor Warning: Incompatible color definition on input line 384.
 
 
-Package xcolor Warning: Incompatible color definition on input line 346.
+Package xcolor Warning: Incompatible color definition on input line 384.
 
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-10-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-10-1.png>
+File: 10_Bagging_files/figure-latex/unnamed-chunk-5-1.png Graphic file (type bm
+p)
+<10_Bagging_files/figure-latex/unnamed-chunk-5-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 353.
-
-
-Package xcolor Warning: Incompatible color definition on input line 382.
+Package xcolor Warning: Incompatible color definition on input line 388.
 
 
-Package xcolor Warning: Incompatible color definition on input line 382.
+Package xcolor Warning: Incompatible color definition on input line 401.
 
 
-Underfull \vbox (badness 1708) detected at line 382
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 382.
+Package xcolor Warning: Incompatible color definition on input line 401.
 
 [6]
 
-Package xcolor Warning: Incompatible color definition on input line 382.
+Package xcolor Warning: Incompatible color definition on input line 421.
 
 
-Package xcolor Warning: Incompatible color definition on input line 382.
+Package xcolor Warning: Incompatible color definition on input line 450.
 
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-11-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-11-1.png>
 
-Package xcolor Warning: Incompatible color definition on input line 399.
+Package xcolor Warning: Incompatible color definition on input line 450.
+
+
+Package xcolor Warning: Incompatible color definition on input line 461.
+
+
+Package xcolor Warning: Incompatible color definition on input line 481.
+
+
+Package xcolor Warning: Incompatible color definition on input line 481.
+
+
+Underfull \vbox (badness 2980) detected at line 481
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 481.
 
 [7]
 
-Package xcolor Warning: Incompatible color definition on input line 422.
-
-
-Package xcolor Warning: Incompatible color definition on input line 422.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-12-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-12-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 430.
-
-
-Package xcolor Warning: Incompatible color definition on input line 440.
-
-
-Package xcolor Warning: Incompatible color definition on input line 440.
-
-
-Package xcolor Warning: Incompatible color definition on input line 440.
-
-[8]
-
-Package xcolor Warning: Incompatible color definition on input line 440.
-
-
-Package xcolor Warning: Incompatible color definition on input line 440.
-
-
-Overfull \hbox (116.20644pt too wide) in paragraph at lines 467--467
-[]   \TU/lmtt/m/n/12 2) Overall_Qual=Very_Poor,Poor,Fair,Below_Average,Average,
-Above_Average,Good 1722  4107888000000 156954.70[] 
- []
-
-
-Overfull \hbox (777.4904pt too wide) in paragraph at lines 467--467
-[]     \TU/lmtt/m/n/12 4) Neighborhood=North_Ames,Old_Town,Edwards,Sawyer,Mitch
-ell,Brookside,Iowa_DOT_and_Rail_Road,South_and_West_of_Iowa_State_University,Me
-adow_Village,Briardale,Northpark_Villa,Blueste 1022  1332227000000 132318.00[] 
-
- []
-
-
-Overfull \hbox (808.34247pt too wide) in paragraph at lines 467--467
-[]     \TU/lmtt/m/n/12 5) Neighborhood=College_Creek,Somerset,Northridge_Height
-s,Gilbert,Northwest_Ames,Sawyer_West,Crawford,Timberland,Northridge,Stone_Brook
-,Clear_Creek,Bloomington_Heights,Veenker,Green_Hills 700  1249681000000 192924.
-20[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 469.
-
-
-Package xcolor Warning: Incompatible color definition on input line 473.
-
-
-Package xcolor Warning: Incompatible color definition on input line 473.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-13-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-13-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 477.
-
-[9]
-
 Package xcolor Warning: Incompatible color definition on input line 481.
 
 
 Package xcolor Warning: Incompatible color definition on input line 481.
 
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-14-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-14-1.png>
+File: 10_Bagging_files/figure-latex/unnamed-chunk-8-1.png Graphic file (type bm
+p)
+<10_Bagging_files/figure-latex/unnamed-chunk-8-1.png>
 
 Package xcolor Warning: Incompatible color definition on input line 485.
 
 
-Package xcolor Warning: Incompatible color definition on input line 497.
+Package xcolor Warning: Incompatible color definition on input line 489.
 
 
-Package xcolor Warning: Incompatible color definition on input line 497.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-15-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-15-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 501.
-
-[10]
-
-Package xcolor Warning: Incompatible color definition on input line 505.
+Package xcolor Warning: Incompatible color definition on input line 489.
 
 
-Package xcolor Warning: Incompatible color definition on input line 505.
+Package xcolor Warning: Incompatible color definition on input line 498.
 
 
-Package xcolor Warning: Incompatible color definition on input line 523.
+Package xcolor Warning: Incompatible color definition on input line 502.
 
 
-Package xcolor Warning: Incompatible color definition on input line 533.
+Package xcolor Warning: Incompatible color definition on input line 502.
+
+File: 10_Bagging_files/figure-latex/unnamed-chunk-10-1.png Graphic file (type b
+mp)
+<10_Bagging_files/figure-latex/unnamed-chunk-10-1.png>
+
+Package xcolor Warning: Incompatible color definition on input line 512.
+
+[8]
+
+Package xcolor Warning: Incompatible color definition on input line 517.
 
 
-Package xcolor Warning: Incompatible color definition on input line 533.
+Package xcolor Warning: Incompatible color definition on input line 517.
 
-
-Package xcolor Warning: Incompatible color definition on input line 540.
-
-
-Package xcolor Warning: Incompatible color definition on input line 544.
-
-
-Package xcolor Warning: Incompatible color definition on input line 544.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-17-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-17-1.png>
-[11]
-
-Package xcolor Warning: Incompatible color definition on input line 551.
-
-
-Package xcolor Warning: Incompatible color definition on input line 555.
-
-
-Package xcolor Warning: Incompatible color definition on input line 555.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-18-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-18-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 559.
-
-
-Package xcolor Warning: Incompatible color definition on input line 571.
-
-
-Package xcolor Warning: Incompatible color definition on input line 571.
-
-
-Package xcolor Warning: Incompatible color definition on input line 571.
-
-[12]
-
-Package xcolor Warning: Incompatible color definition on input line 571.
-
-
-Package xcolor Warning: Incompatible color definition on input line 571.
-
-File: 09_Decision-Trees_files/figure-latex/unnamed-chunk-19-1.png Graphic file 
-(type bmp)
-<09_Decision-Trees_files/figure-latex/unnamed-chunk-19-1.png>
-
-Package xcolor Warning: Incompatible color definition on input line 575.
-
-
-Package xcolor Warning: Incompatible color definition on input line 580.
-
-
-Package xcolor Warning: Incompatible color definition on input line 580.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 582.
-[13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 582.
-(./09_Decision-Trees.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 582.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 582.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 582.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 519.
+[9]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 519.
+(./10_Bagging.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 519.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 519.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 519.
  ) 
 Here is how much of TeX's memory you used:
- 28968 strings out of 494988
- 519807 string characters out of 6178637
- 737122 words of memory out of 5000000
- 32494 multiletter control sequences out of 15000+600000
+ 28918 strings out of 494988
+ 517065 string characters out of 6178637
+ 744006 words of memory out of 5000000
+ 32456 multiletter control sequences out of 15000+600000
  533844 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 54i,11n,117p,10426b,379s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 54i,12n,117p,10419b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 09_Decision-Trees.pdf (13 pages).
+Output written on 10_Bagging.pdf (9 pages).

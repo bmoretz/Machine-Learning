@@ -158,7 +158,7 @@ panderOptions('keep.trailing.zeros', TRUE)
 
 ```
 
-## Multivariate Adaptive Regression Splines
+##  Decision Trees
 
 ### Data Sets
 
