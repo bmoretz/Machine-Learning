@@ -278,7 +278,8 @@ best_rf <- h2o.randomForest(
 best_gbm <- h2o.gbm(
   x = X, y = Y, training_frame = train_h2o, ntrees = 5000, learn_rate = 0.01,
   max_depth = 7, min_rows = 5, sample_rate = 0.8, nfolds = 10,
-  fold_assignment = "Modulo", keep_cross_validation_predictions = TRUE,
+  fold_assignment = "Modulo", keep_cross_validation_predictions = TRUE,es
+  
   seed = 123, stopping_rounds = 50, stopping_metric = "RMSE",
   stopping_tolerance = 0
 )
